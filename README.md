@@ -1,5 +1,3 @@
-[QA-NatVer]
-
 ### Installation
 
 Follow requirements.txt (hopefully, have not checked it is updated.)
