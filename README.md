@@ -2,6 +2,8 @@
 
 Follow requirements.txt (hopefully, have not checked it is updated.)
 
+Note if you want to run the preprocessing (chunking and alignment pipeline yourself), you need to add the actual fever data into the appropriate data folder. You will see an error anyways, telling you that the path was not found.
+
 
 ### Run FEVER
 
