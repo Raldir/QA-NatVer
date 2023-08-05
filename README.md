@@ -1,4 +1,4 @@
-![QA-NatVer]
+[QA-NatVer]
 
 ### Installation
 
