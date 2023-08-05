@@ -1,0 +1,4 @@
+{
+    "dataset": "fever",
+    "num_classes": 3
+}

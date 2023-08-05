@@ -1,0 +1,241 @@
+29315	^ { Future } [ Future ] = { is a rapper } [ is a rapper ] =
+29315	^ { Future is a rapper } [ Future is a rapper ] =
+
+100389	^ { Future } [ Future ] = { is a performer } [ is an American rapper , singer , songwriter , and record producer ] <
+100389	^ { Future } [ Future ] = { is a performer } [ is an American rapper ] <
+100389	^ { Future } [ Future ] = { is a performer } [ singer ] <
+100389	^ { Future } [ Future ] = { is a performer } [ songwriter ] <
+100389	^ { Future is a performer } [ Nayvadius DeMun Wilburn ( born November 20 , 1983 ) , known professionally as Future , is an American rapper , singer , songwriter , and record producer ] <
+100389	^ { Future is a performer } [ Nayvadius DeMun Wilburn ( born November 20 , 1983 ) , known professionally as Future , is an American rapper , singer , songwriter , and record producer ] <
+
+10938	^ { Malala Yousafzai } [ Malala Yousafzai ] = { had a father } [ by her father 's thoughts and humanitarian work ] < 
+10938	^ { Malala Yousafzai } [ Malala Yousafzai ] = { had a father } [ as the father of Nobel laureate Malala Yousafzai ] < 
+10938	^ { Malala Yousafzai had a father } [ Considering Jinnah and Benazir Bhutto as her role - models , she was particularly inspired by her father 's thoughts and humanitarian work ] <
+
+29351	^ { Naruto } [ Naruto ] = { is licensed } [ has licensed ] = { for production } [ for North American production ] <
+29351	^ { Naruto } [ Naruto ] = { is licensed for production } [ has licensed for North American production ] <
+29351	^ { Naruto is licensed for production } [ Viz Media has licensed the manga and anime for North American production ] <
+
+49466	^ { Jesus } [ Jesus ] = { became } [ became ] = { a central figure } [ the central figure ] = { of a religion } [ of Christianity ] <
+49466	^ { Jesus } [ Jesus ] = { became } [ became ] = { a central figure of a religion } [ the central figure of Christianity ] <
+49466	^ { Jesus } [ Jesus ] = { became a central figure of a religion } [ became the central figure of Christianity ] <
+49466	^ { Jesus became a central figure of a religion } [ Jesus ( ; c. 4 BC - c. AD 30/33 ) , also referred to as Jesus of Nazareth or Jesus Christ , was a Jewish preacher and religious leader who became the central figure of Christianity ] <
+
+49484	^ { Page Hamilton } [ Page Hamilton ] = { is a musician } [ is an American guitarist ] <
+49484	^ { Page Hamilton } [ Page Hamilton ] = { is a musician } [ singer ] <
+49484	^ { Page Hamilton } [ Page Hamilton ] = { is a musician } [ songwriter and record producer ] <
+49484	^ { Page Hamilton } [ Page Hamilton ] = { is a musician } [ is an American guitarist , singer , songwriter and record producer ] <
+49484	^ { Page Hamilton is a musician } [ Page Hamilton ( born May 18 , 1960 ) is an American guitarist , singer , songwriter and record producer , mostly noted for his work with alternative metal band Helmet ] <
+
+133129	^ { Hayden Panettiere } [ Hayden Panettiere ] = { starred } [ her portrayal ] # { in a drama } [ in the true crime drama Amanda Kox ] <
+133129	^ { Hayden Panettiere } [ Hayden Panettiere ] = { starred in a drama } [ her portrayal of the title character in the true crime drama Amanda Knox : Murder on Trial in Italy and Kirby Reed in the slasher film Scream 4 ] <
+133129	^ { Hayden Panettiere starred in a drama } [ Other notable roles include her portrayal of the title character in the true crime drama Amanda Knox : Murder on Trial in Italy and Kirby Reed in the slasher film Scream 4 ] <
+
+133548	^ { Tyler } [ Tyler ] =  { The Creator } [ The Creator ] =  { hosts an event } [ and a carnival , named Camp Flog Gnaw , hosted annually since 2012 ] <
+133548	^ { Tyler, The Creator } [ Tyler, The Creator ] =  { hosts } [ hosted annually since 2012 ] < { an event } [ and a carnival ] <
+133548	^ { Tyler, The Creator } [ Tyler, The Creator ] =  { hosts an event } [ has his own clothing company , called Golf Wang , started in 2011 , and a carnival , named Camp Flog Gnaw , hosted annually since 2012 ] <
+133548	^ { Tyler The Creator hosts an event } [ He has his own clothing company , called Golf Wang , started in 2011 , and a carnival , named Camp Flog Gnaw , hosted annually since 2012 ] <
+
+54159	^ { Rod Serling } [ Rod Serling ] = { clashed } [ clashing ] = { with presidents } [ with television executives and sponsors ] #
+54159	^ { Rod Serling } [ Rod Serling ] = { clashed with presidents } [ clashing with television executives and sponsors ] #
+54159	^ { Rod Serling clashed with presidents } [ He was known as the " angry young man " of Hollywood , clashing with television executives and sponsors over a wide range of issues including censorship , racism , and war ] #
+
+52933	^ { Attack } [ including eroge ] # { on Titan } [ including ] # { has been adapted } [ that has been developed ] # { into a novel } [ of visual novels ] < { by a Japanese visual novel computer software company } [ is a Japanese visual novel computer software company ] =
+52933	^ { Attack on Titan } [ including eroge ] # { has been adapted } [ that has been developed ] = { into a novel } [ off series ] > { by a Japanese visual novel computer software company } [ is a Japanese visual novel computer software company ] =
+52933	^ { Attack on Titan has been adapted into a novel by a Japanese visual novel computer software company } [ Nitroplus Co. , Ltd. , stylized as nitro + , is a Japanese visual novel computer software company that has developed a number of visual novels , including eroge ] #
+
+110895	^ { George A. Romero } [ George A. Romero ] = { directed } [ and directed ] = { The Crazies } [ The Crazies ] =
+110895	^ { George A. Romero } [ George A. Romero ] = { directed The Crazies } [ contributed include The Crazies ] >
+110895	^ { George A. Romero directed The Crazies } [ His other works contributed include The Crazies , Creepshow , Martin , Monkey Shines , and The Dark Half . The film was written and directed by George A. Romero , and starred Lane Carroll , Will MacMillan , Harold Wayne Jones . ] <
+
+110951	^ { Spider - Man 3 } [ Spider Man 3 ] = { 's characters } [ has appeared ] # { included } [ to be included ] = { Green Goblin } [ of Gwen Stacey ] # { Bullseye } [ Raimi ] # { Mary Jane Watson } [ Venom ] #
+110951	^ { Spider - Man 3 's characters } [ Spider Man 3 ] = { included } [ to be included ] = { Green Goblin } [ Green Goblin ] = { Bullseye } [ Osborn , and 2007 's Spider ] # { Mary Jane Watson } [ Norman Harry Osborn ] #
+
+110975	^ { Hawaii } [ Hawaii ] = { is the eleventh - least densely populated state } [ is the 8th - smallest and the 11th - least populous ] |
+110975	^ { Hawaii } [ Hawaii ] = { is the eleventh - least densely populated state } [ is the 8th - smallest and the 11th - least populous , but the 13th - most densely populated of the fifty U.S. states ] |
+110975	^ { Hawaii } [ Hawaii ] = { is the eleventh - least densely populated state } [ Hawaii is the 8th - smallest and the 11th - least populous , but the 13th - most densely populated of the fifty U.S. states ] |
+
+111196	^ { Audrey Hepburn } [ Audrey Hepburn ] = { appeared } [ appeared ] = { in more films } [ in fewer films ] ! { as her life } [ as her life ] = { progressed } [ went ] =
+111196	^ { Audrey Hepburn } [ Audrey Hepburn ] = { appeared in more films } [ appeared in fewer films ] !  { as her life } [ as her life ] = { progressed } [ went ] =
+111196	^ { Audrey Hepburn } [ Audrey Hepburn ] = { appeared in more films } [ appeared in fewer films ] !  { as her life progressed } [ as her life went on ] =
+111196	^ { Audrey Hepburn } [ Audrey Hepburn ] = { appeared in more films as her life progressed } [ appeared in fewer films as her life went on ] !  
+
+111349	^ { Schindler's List } [ Schindler's List ] = { premiered } [ premiered ] = { on November 12 , 1993 } [ on November 30 , 1993 ] |
+111349	^ { Schindler's List } [ Schindler's List ] = { premiered on November 12 , 1993 } [ premiered on November 30 , 1993 ] |
+111349	^ { Schindler's List premiered on November 12 , 1993 } [ Schindler 's List premiered on November 30 , 1993 , in Washington , D.C. and it was released on December 15 , 1993 , in the United States ] |
+
+111446	^ { PlayStation 4 } [ PlayStation 4 ] = { was developed } [ is developed ] = { in a car } [ a consoles ] >
+111446	^ { PlayStation 4 } [ PlayStation 4 ] = { was developed in a car } [ is a line of home video game consoles developed by Sony Interactive Entertainment ] #
+111446	^ { PlayStation 4 was developed in a car } [ PlayStation 4 ( PS4 ) is a line of home video game consoles developed by Sony Interactive Entertainment' ] |
+
+111459	^ { Marion Cotillard } [ Marion Cotillard ] = { acted } [ actress ] = { in Slovakia } [ is a French ] | 
+111459	^ { Marion Cotillard } [ Marion Cotillard ] =  { acted in Slovakia } [ a French actress ] | 
+111459	^ { Marion Cotillard acted in Slovakia } [ Marion Cotillard ( ; born 30 September 1975 ) is a French actress , singer - songwriter , musician , environmentalist and spokesperson for Greenpeace who achieved international fame with the film La Vie en Rose ( 2007 ) ] !
+
+146899	^ { Joy ( entertainer ) } [ Joy ( entertainer ) ] = { is a member of a K - pop Meetup } [ is a member of the K - pop girl group Red Velvet ] |
+146899	^ { Joy ( entertainer ) is a member of a K pop Meetup } [ She is a member of the K - pop girl group Red Velvet ] |
+
+147036	^ { Instagram } [ Instagram ] = { is a tomb } [ is a mobile , desktop , and internet - based photo - sharing application and service ] |
+147036	^ { Instagram is a tomb } [ Instagram is a mobile , desktop , and internet - based photo - sharing application and service that allows users to share pictures and videos either publicly or privately ] !
+
+14682	^ { Stranger Things } [ Stranger Things ] = { has three seasons } [ for a second season ] |
+14682	^ { Stranger Things } [ Stranger Things ] = { has three seasons } [ renewed the series for a second season of nine episodes ] |
+14682	^ { Stranger Things has three seasons } [  Netflix renewed the series for a second season of nine episodes , which is set to be released on October 31 , 2017 ] |
+
+14716	^ { Duleep Singh } [ Duleep Singh ] = { was the last Maharaja } [ was the last Maharaja ] = { of the Sikh Empire } [ of the Sikh Empire ] =
+14716	^ { Duleep Singh } [ Duleep Singh ] = { was the last Maharaja of the Sikh Empire } [ was the last Maharaja of the Sikh Empire ] =
+14716	^ { Duleep Singh was the last Maharaja of the Sikh Empire } [ Maharaja Duleep Singh , GCSI ( 6 September 1838 - 22 October 1893 ) , also known as Dalip Singh and later in life nicknamed the Black Prince of Perthshire , was the last Maharaja of the Sikh Empire ] = 
+
+110089	^ { Timon & Pumbaa } [ Timon & Pumbaa ] = { is a TV series } [ is an American animated television series ] < { in the Lion King universe } [ The Lion King created Animation ] =
+110089	^ { Timon & Pumbaa } [ Timon & Pumbaa ( TV series ) ] = { is a TV series in the Lion King universe } [ is an American animated television series created by Walt Disney Television Animation ] =
+
+110631	^ { Rona Munro } [ Rona Munro ] = { is a scriptwriter for Doctor Who } [ Other returning writers who have worked on this series and previous ones] =
+110631	^ { Rona Munro is a scriptwriter for Doctor Who } [ Other returning writers who have worked on this series and previous ones include Frank Cottrell - Boyce , Sarah Dollard , Jamie Mathieson , Peter Harness , Toby Whithouse and Mark Gatiss , as well as two new writers for the revived era of the programme , Mike Bartlett and Rona Munro , the latter of whom wrote Survival , the final serial of the original classic era ] = 
+
+161305	^ { Abraham Lincoln } [ Abraham Lincoln ] = { was dead } [ until his assassination ] = { by 1858 } [ in April 1865 ] |
+161305	^ { Abraham Lincoln was dead by 1858 } [ Abraham Lincoln ( February 12 , 1809 - April 15 , 1865 ) was an American politician and lawyer who served as the 16th President of the United States from March 1861 until his assassination in April 1865 ] |
+
+161397	^ { Ron Cobb } [ Ron Cobb ] = { is only a designer } [ is an American cartoonist , artist , writer , film designer , and film director ] !
+161397	^ { Ron Cobb is only a designer } [ Ron Cobb ( born 1937 ) is an American cartoonist , artist , writer , film designer , and film director ] !
+
+161409	^ { Buddhism } [ Buddhism ] = { has zero followers } [ with over 500 million followers or 7 % of the global population ] |
+161409	^ { Buddhism has zero followers } [ Buddhism is the world 's fourth - largest religion , with over 500 million followers or 7 % of the global population , known as Buddhists ] |
+
+208263	^ { Despicable Me 3 } [ Despicable Me 3 ] = { only stars } [ stars ] = { the voice of Steve Carell } [ the voices of Steve Carell in a dual role ] <
+208263	^ { Despicable Me 3 } [ Despicable Me 3 ] = { only stars the voice of Steve Carell } [ stars the voices of Steve Carell in a dual role ] <
+208263	^ { Despicable Me 3 only stars the voice of Steve Carell } [ It stars the voices of Steve Carell in a dual role , Kristen Wiig , and Trey Parker ] <
+
+208285	^ { Braveheart } [ Braveheart ] = { has never won } [ and won ] ! { an accolade } [ Best Picture ] <
+208285	^ { Braveheart } [ Braveheart ] = { has never won an accolade } [ was nominated for ten Academy Awards at the 68th Academy Awards and won five : Best Picture ] !
+208285	^ { Braveheart has never won an accolade } [ The film was nominated for ten Academy Awards at the 68th Academy Awards and won five : Best Picture , Best Director , Best Cinematography , Best Makeup , and Best Sound Editing ] !
+
+208469	^ { The Emoji Movie } [ The Emoji Movie ] = { will be released } [ to be released ] = { by a company other than Columbia Pictures } [ by Columbia Pictures ] !
+208469	^ { The Emoji Movie } [ The Emoji Movie ] = { will be released by a company other than Columbia Pictures } [ to be released on July 28 , 2017 , by Columbia Pictures ] !
+208469	^ { The Emoji Movie will be released by a company other than Columbia Pictures } [ Produced by Sony Pictures Animation , the film is scheduled to be released on July 28 , 2017 , by Columbia Pictures ] !
+
+28980	^ { Penny Dreadful } [ Penny Dreadful ( TV series ) ] = { does not have the character Dorian Gray } [ including Dorian Gray from Oscar Wilde 's The Picture of Dorian Gray ; Mina Harker ] !
+28980	^ { Penny Dreadful does not have the character Dorian Gray } [ The series draws upon many public domain characters from 19th - century British and Irish fiction , including Dorian Gray from Oscar Wilde 's The Picture of Dorian Gray ; Mina Harker , Abraham Van Helsing , Dr. Seward , Renfield , and Count Dracula from Bram Stoker 's Dracula ; Victor Frankenstein and his monster from Mary Shelley 's Frankenstein ; and Dr. Henry Jekyll from Robert Louis Stevenson 's Strange Case of Dr Jekyll and Mr Hyde ] !
+
+29312	^ { Feels } [ Feels ] = { So Good } [ So Good ] = { was released } [ and released ] = { April 19 , 2001 } [ on 19 February 2001 ] |
+29312	^ { Feels So Good } [ 'Feels So Good ( Mel B song ) ] = { was released } [ and released ] = { April 19 , 2001 } [ on 19 February 2001 ] |
+29312	^ { Feels So Good } [ 'Feels So Good ( Mel B song ) ] = { was released April 19 , 2001 } [ was written along with Jimmy Jam and Terry Lewis for her debut solo album Hot ( 2001 ) and released as the album 's second single on 19 February 2001 ] |
+29312	^ { Feels So Good  was released April 19 , 2001 } [ It was written along with Jimmy Jam and Terry Lewis for her debut solo album Hot ( 2001 ) and released as the album 's second single on 19 February 2001 ] |
+
+110885	^ { Judd Apatow } [ Judd Apatow ] = { has been nominated } [ have also been nominated ] = { for three Grammy Awards } [ for Grammy Awards ] >
+110885	^ { Judd Apatow } [ Judd Apatow ] = { has been nominated for three Grammy Awards } [ have also been nominated for Grammy Awards ] >
+110885	^ { Judd Apatow has been nominated for three Grammy Awards } [ His films have also been nominated for Grammy Awards , PGA Awards , Golden Globe Awards , and Academy Awards ] >
+
+110631	^ { Rona Munro } [ Mike Bartlett and Rona Munro ] < { is a scriptwriter } [ Other returning writers ] > { for Doctor Who } [ Doctor Who ( series 10 ) ] =
+110631	^ { Rona Munro } [ Mike Bartlett and Rona Munro ] = { is a scriptwriter for Doctor Who } [ Frank Cottrell - Boyce , Sarah Dollard , Jamie Mathieson , Peter Harness , Toby Whithouse and Mark Gatiss , as well as two new writers for the revived era of the programme , Mike Bartlett and Rona Munro , the latter of whom wrote Survival , the final serial of the original classic era ] >
+110631	^ { Rona Munro is a scriptwriter for Doctor Who } [ Frank Cottrell - Boyce , Sarah Dollard , Jamie Mathieson , Peter Harness , Toby Whithouse and Mark Gatiss , as well as two new writers for the revived era of the programme , Mike Bartlett and Rona Munro , the latter of whom wrote Survival , the final serial of the original classic era ] >
+
+200696	^ { A Song } [ A Song ] = { of Ice and Fire } [ of Ice and Fire ] = { is by someone who works } [ is a novels by American novelist ] < { in the fantasy genre } [ of epic fantasy ] <
+200696	^ { A Song of Ice and Fire } [ A Song of Ice and Fire ] = { is by someone who works in the fantasy genre } [ is a novels by American novelist of epic fantasy ] <
+200696	^ { A Song of Ice and Fire is by someone who works in the fantasy genre} [ A Song of Ice and Fire is a series of epic fantasy novels by the American novelist and screenwriter George R. R. Martin ] <
+
+229421	^ { Anderson Silva } [ Anderson Silva ] = { was born } [ born ] = { on the month } [ 14 ] # { of April } [ April ] =
+229421	^ { Anderson Silva } [ Anderson Silva ] = { was born } [ born ] = { on the month of April } [ April ] =
+
+226214	^ { Gift } [ Gift ] =  { of the Night Fury exclusively } [ of the Night Fury The ] > { stars } [ stars ] =  { the voices } [ the voices ] =  { of people from Kenya } [ of Jay Baruchel ] |
+226214	^ { Gift } [ Gift ] =  { of the Night Fury } [ of the Night Fury The ] = { exclusively stars } [ stars ] >  { the voices } [ the voices ] =  { of people from Kenya } [ of Jay Baruchel ] |
+
+83444	^ { Anne Hathaway } [ Anne Hathaway ] = { debuted } [ debut ] = { in Gilmore Girls } [ in Get Real ] |
+83444	^ { Anne Hathaway debuted in Gilmore Girls } [ Anne Hathaway debuted in Get Real ] |
+
+29412	^ { Titanic } [ Titanic ] = { had an initial worldwide gross } [ an initial worldwide gross ] = { of public outrage } [ of , billion dollar mark ] #
+29412	^ { Titanic } [ Titanic ] = { had an initial worldwide gross of public outrage } [ an initial worldwide gross of , billion dollar mark ] #
+29412	^ { Titanic had an initial worldwide gross of public outrage } [ Titanic an initial worldwide gross of , billion dollar mark ] #
+29412	^ { Titanic had an initial worldwide gross of public outrage } [ With an initial worldwide gross of over $ 1.84 billion , Titanic was the first film to reach the billion-dollar mark ] #
+
+21670	^ { The Prestige } [ The Prestige ] = { is a work } [ is a film ] <
+
+161024	^ { OK Computer } [ OK Computer ] = { was released } [ is released ] = { in 1989 } [ in 1997 ] |
+
+62814	^ { Alex Rodriguez } [ Alex Rodriguez ] = { appealed } [ appealing ] = { his suspension } [ suspended ] = { was allowed to play } [ was allowed to play ] = { during the process } [ while the punishment ] <
+62814	^ { Alex Rodriguez } [ Alex Rodriguez ] = { appealed } [ appealing ] = { his suspension } [ suspended ] = { was allowed to play during the process } [ was allowed to play while the punishment ] <
+62814	^ { Alex Rodriguez appealed his suspension and was allowed to play during the process } [ In August 2013 , MLB suspended him 211 games for his involvement in the scandal , but he was allowed to play while appealing the punishment  ] <
+
+203102	^ { James Mangold } [ James Mangold ] = { has directed } [ has directed ] = { only British films } [ Films the 2007 ] #
+203102	^ { James Mangold has directed only British films } [ Films he has directed include Walk the Line , which he also co-wrote ; The Wolverine ; Logan ; Cop Land ; Girl , Interrupted ; Knight and Day ; and the 2007 remake 3:10 to Yuma ] #
+
+185270	^ { Batman } [ Batman ] = { The Killing Joke } [ The Killing Joke ] = { features only one character } [ the the character ] > { Harley Quinn } [ Joker Joker ] |
+185270	^ { Batman } [ Batman ] = { The Killing Joke } [ The Killing Joke ] = { features only one character, Harley Quinn } [ the the character Joker Joker ] >
+
+205476	^ { Wyatt Earp } [ Wyatt Earp ] = { worked to extract } [ went to Texas to track ] < { Russian spies } [ an outlaw ] #
+
+63510	^ { Bohemian Rhapsody } [ Bohemian Rhapsody ] = { sold } [ selling ] = { in bulk } [ in selling ] #
+63510	^ { Bohemian Rhapsody sold in bulk } [ Bohemian Rhapsody It in selling ] #
+
+88144	^ { Emma } [ Emma ] = { is the prequel } [ is about the perils ] # { to a Jane Austen novel } [ Jane Austen , a novel of misconstrued romance ] <
+88144	^ { Emma } [ Emma ] = { is the prequel to a Jane Austen novel } [ film based on the novel ] #
+
+151606	^ { Syd Barrett } [ Syd Barrett ] = { did not strictly guard } [ he strictly guarded ] ! { his privacy } [ his own privacy ] =
+151606	^ { Syd Barrett } [ Syd Barrett ] = { did not strictly guard his privacy } [ he strictly guarded his own privacy ] !
+
+124570	^ { Michael Schumacher } [ Michael Schumacher ] = { is a race car driver } [ is a seven time Formula One drivers ] < { in Formula One } [ and Formula One ] =
+124570	^ { Michael Schumacher } [ Michael Schumacher ] = { is a race car driver in Formula One } [ is a seven-time Formula One World Champion ] <
+
+120559	^ { Tyrese Gibson } [ Tyrese Gibson ] = { is an dancer } [ is an singer ] #
+120559	^ { Tyrese Gibson is an dancer } [ Tyrese Gibson is an singer ] #
+
+176326	^ { Gopalkrishna Gandhi } [ Gopalkrishna Gandhi ] = { is a bowler } [ is a retired IAS officer and diplomat ] #
+176326	^ { Gopalkrishna Gandhi is a bowler } [ Gopalkrishna Gandhi is a retired IAS officer and diplomat ] #
+
+110739	^ { The Man } [ The Man ] = { in the High Castle } [ in the High Castle ] = { is not a novel } [ is an alternative history novel ] !
+110739	^ { The Man in the High Castle } [ The Man in the High Castle ] = { is not a novel } [ is an alternative history novel ] !
+110739	^ { The Man in the High Castle is not a novel } [ The Man in the High Castle is an alternative history novel ] !
+
+112817	^ { Cindy McCain } [ Cindy McCain ] = { is married to } [ She married ] = { to Paul Ryan } [ John McCain ] |
+112817	^ { Cindy McCain } [ Cindy McCain ] = { is married to Paul Ryan } [ She married John McCain ] |
+
+11281	^ { Khal Drogo } [ Khal Drogo ] = { is a Dothraki } [ is a leader of the Dothraki ] <
+11281	^ { Khal Drogo os a Dothraki } [ Khal Drogo is a leader of the Dothraki ] <
+
+229418	^ { 1975 was the year } [ 1975 ] <  { when Anderson Silva } [ Anderson Silva ] =  { was born } [ born ] =
+229418	^ { 1975 was the year when Anderson silva } [ 1975 Anderson Silva ] =  { was born } [ born ] =
+
+18132	^ { Lake Powell } [ Lake Powell ] = { is on the news } [ on the border ] #
+18132	^ { Lake Powell is on the news } [ Lake Powell on the border ] #
+18132	^ { Lake Powell is on the news } [ Lake Powell is a reservoir ] #
+
+120963	^ { Michael J. Fox } [ Michael J. Fox ] = { is an capitalist } [ is a Canadian American activist ] #
+
+97806	^ { Earth } [ Earth ] = { is a small planet } [ is the densest planet terrestrial planets ] !
+97806	^ { Earth } [ Earth ] = { is a small planet } [ largest of the four terrestrial planets ] !
+
+206352	^ { Justinian I } [ Justinian I ] = { was an East Roman emperor } [ was a East Roman emperor ] =
+
+21396	^ { Stanley Tucci acts } [ Stanley Tucci is an American character actor ] <
+21396	^ { Stanley Tucci } [ Stanley Tucci ] = { acts } [ is an American character actor ] <
+
+123131	^ { Folk music } [ Folk music ] = { is played } [ are included ] # { at Royal Birkdale } [ Royal Birkdale ] = 
+123131	^ { Folk music } [ Folk music ] = { is played at Royal Birkdale } [ are included Royal Birkdale ] #
+
+35233	^ { Rope } [ Rope ] = { was not released in 1948 } [ is a 1948 American film ] ! 
+35233	^ { Rope was not released in 1948 } [ Rope is a 1948 American film ] !
+
+157941	^ { The United States } [ The United States ] = { has a coastline } [ is the coastline ] <
+157941	^ { The United States has a coastline } [ The United States emerged from 13 British colonies along the East Coast ] <
+
+106314	^ { Seth Rogen } [ Seth Rogen ] = { did not land a part on Undeclared } [ got a part on sitcom Undeclared ] !
+106314	^ { Seth Rogen did not land a part on Undeclared } [ Seth Rogen got a part on sitcom Undeclared ] !
+
+45334	^ { Carrie Fisher } [ Carrie Fisher Fisher ] = { did not write } [ wrote , non ] ! { several semi - autobiographical novels } [ several semi autobiographical novels ] =
+45334	^ { Carrie Fisher } [ Carrie Fisher ] = { did not write several semi - autobiographical novels } [ wrote , non several semi autobiographical novels ] !
+
+31899	^ { Maisie Williams } [ Maisie Williams ] = { is from Belfast } [ Williams born ] # { England } [ English actress ] <
+31899	^ { Maisie Williams } [ Maisie Williams ] = { is from Belfast, England } [ Williams born English actress ] #
+
+
+76399	^ { Lahore } [ city ] > { is a settlement } [ is a settlement ] =
+76399	^ { Lahore } [ Lahore ] = { is a settlement } [ is a settlement ] =
+
+48117	^ { New England } [ New England ] = { is not made of states } [ is a geographical region comprising six states ] !
+48117	^ { New England is not made of states } [ New England is a geographical region comprising six states ] !
+
+152161	^ { Whitney Houston } [ Whitney Houston ] = { was found } [ was found ] = { dead } [ dead ] = { by a hotel maid } [ in her guest room at the Beverly Hilton ] #
+152161	^ { Whitney Houston } [ Whitney Houston ] = { was found dead } [ was found dead ] = { by a hotel maid } [ in her guest room at the Beverly Hilton ] #
+152161	^ { Whitney Houston } [ Whitney Houston ] = { was found dead by a hotel maid } [ was found dead in her guest room at the Beverly Hilton ] #
+
+111080	^ { Joseph Fiennes } [ Joseph Fiennes ] = { has a juggling career } [ He is known for his portrayals ] #
+111080	^ { Joseph Fiennes } [ Joseph Fiennes ] = { has a juggling career } [ is an English film and stage actor ] #

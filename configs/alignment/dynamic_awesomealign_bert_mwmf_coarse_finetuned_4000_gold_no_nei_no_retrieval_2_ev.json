@@ -1,0 +1,11 @@
+{
+    "dynamic_parsing": true,
+    "use_retrieved_evidence" : false,
+    "num_retrieved_evidence":  5,
+    "few_shot": true,
+    "max_chunks": 6,
+    "alignment_mode": "awesomealign",
+    "alignment_model": "bert_finetuned_default_gold_no_nei_few_shot_False_4000",
+    "matching_method": "mwmf",
+    "loose_matching": false
+}

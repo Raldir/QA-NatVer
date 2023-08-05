@@ -1,0 +1,1 @@
+ABSOLUTE_PATH = "/local/scratch/rmya2/fact_checking_qa"

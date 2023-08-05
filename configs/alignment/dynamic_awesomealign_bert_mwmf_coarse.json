@@ -1,0 +1,11 @@
+{
+    "dynamic_parsing": true,
+    "use_retrieved_evidence" : "True",
+    "num_retrieved_evidence":  2,
+    "few_shot": true,
+    "max_chunks": 6,
+    "alignment_mode": "awesomealign",
+    "alignment_model": "bert",
+    "matching_method": "mwmf",
+    "loose_matching": false
+}
