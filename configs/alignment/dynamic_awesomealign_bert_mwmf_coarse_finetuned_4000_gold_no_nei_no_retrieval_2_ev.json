@@ -1,7 +1,7 @@
 {
     "dynamic_parsing": true,
     "use_retrieved_evidence" : false,
-    "num_retrieved_evidence":  5,
+    "num_retrieved_evidence":  2,
     "few_shot": true,
     "max_chunks": 6,
     "alignment_mode": "awesomealign",
