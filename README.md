@@ -2,7 +2,33 @@
 
 ### Installation
 
+Setup a new conda environment, e.g. `python3.9` (tested only Python version 3.9)
+
 Follow requirements.txt (hopefully, have not checked it is updated.)
+
+Download Java:
+https://jdk.java.net/19/
+
+Set Java Path:
+export JAVA_HOME=/home/bw447/jdk-19.0.2/
+
+#### Downloading data
+
+Download the FEVER dataset into data/fever:
+
+```
+wget https://fever.ai/download/fever/train.jsonl -P data/fever/
+wget https://fever.ai/download/fever/shared_task_dev.jsonl -P data/fever/
+```
+
+
+#### Download alignment model
+
+Either download the alignment model and place it in ```models/awesomealign``` from here:
+
+`https://drive.google.com/file/d/1-391W3NKTlJLMpjUwjCv03H1Qk0ygWzC/view?usp=sharing`
+
+or simply use the non-finetuned alignment model, by calling the config file `dynamic_awesomealign_bert_mwmf_coarse_only_retrieval_5_ev` when running FEVER below.
 
 ### Run FEVER
 
