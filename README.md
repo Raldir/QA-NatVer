@@ -28,7 +28,8 @@ Either download the alignment model and place it in ```models/awesomealign``` fr
 
 or simply use the non-finetuned alignment model, by calling the config file `dynamic_awesomealign_bert_mwmf_coarse_only_retrieval_5_ev` when running FEVER below.
 
-### Run FEVER
+
+### Run FEVER
 
 Note if you want to run the preprocessing (chunking and alignment pipeline yourself), you need to add the actual fever data into the appropriate data folder (see previous step). You might further see an error after preprocessing the training data, before it processes the validation data. That's ok, just run the program again. This is a bug that needs to be fixed.
 
