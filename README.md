@@ -5,6 +5,7 @@ Setup a new conda environment, e.g. `python3.9` (tested only Python version 3.9)
 Follow requirements.txt (hopefully, have not checked it is updated.)
 
  ```
+Python 3.9.16
 >>> import pytorch_lightning
 >>> pytorch_lightning.__version__
 '1.9.1'
