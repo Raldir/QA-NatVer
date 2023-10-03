@@ -4,6 +4,16 @@ Setup a new conda environment, e.g. `python3.9` (tested only Python version 3.9)
 
 Follow requirements.txt (hopefully, have not checked it is updated.)
 
+ ```
+>>> import pytorch_lightning
+>>> pytorch_lightning.__version__
+'1.9.1'
+>>> import torch
+>>> torch.__version__
+'1.13.1'
+
+```
+
 Download Java:
 https://jdk.java.net/19/
 
