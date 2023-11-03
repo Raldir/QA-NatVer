@@ -1,5 +1,10 @@
 import argparse
 
+import sys, os
+cur_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, f"{cur_dir}/../../")  # for src
+
+
 # from constituent_treelib import ConstituentTree, BracketedTree, Language, Structure
 import copy
 import gc
@@ -52,6 +57,7 @@ class DynamicSentenceAligner(object):
             if "finetuned_" in alignment_model:
                 finetuned = True
                 alignment_model = alignment_model.split("finetuned_")[1]
+            print(f">>> {alignment_model}")
             self.model = AwesomeAligner(
                 model=alignment_model, finetuned=finetuned, token_type="bpe", matching_methods="mai", device="cuda:0"
             )
@@ -526,7 +532,7 @@ class DynamicSentenceAligner(object):
 
 def load_data(dataset, split, use_retrieved_evidence, num_retrieved_evidence):
     if dataset == "danfever":
-        in_file = "data/danfever/processed_validation_use_retr_False_retr_evidence_2_dp_True_alignment_mode_awesomealign_max_chunks_5_alignment_model_bert_finetuned_default_gold_no_nei_few_shot_False_4000_matching_method_mwmf_loose_matching_False.jsonl"
+        in_file = "data/danfever/processed_validation_use_retr_False_retr_evidence_2_dp_True_alignment_mode_awesomealign_max_chunks_6_alignment_model_bert_finetuned_default_gold_no_nei_few_shot_False_4000_matching_method_mwmf_loose_matching_False.jsonl"
     else:
         in_file = "data/legacy/processed_{}_use_retr_{}_retr_evidence_{}_dp_True_concat_op_s.jsonl".format(
             split, use_retrieved_evidence, num_retrieved_evidence

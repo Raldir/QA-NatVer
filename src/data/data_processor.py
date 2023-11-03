@@ -13,6 +13,7 @@ from tqdm import tqdm
 from env import ABSOLUTE_PATH
 from src.data.chunking_and_alignment import DynamicSentenceAligner
 from src.data.danfever_reader import DanFeverReader
+from src.data.symmetric_fever_reader import SymmetricFeverReader
 from src.data.fever_reader import FeverReader
 
 

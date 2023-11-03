@@ -1,1 +1,1 @@
-ABSOLUTE_PATH = "/local/scratch/rmya2/fact_checking_qa"
+ABSOLUTE_PATH = "/home/ms2518/PHD/QA-NatVer"

@@ -1,0 +1,4 @@
+{
+    "dataset": "fever_symmetric",
+    "num_classes": 3
+}
