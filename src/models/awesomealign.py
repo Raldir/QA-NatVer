@@ -6,8 +6,7 @@ import os
 import torch
 import transformers
 
-from env import ABSOLUTE_PATH
-
+from src.utils.util import ROOT_DIR
 
 class AwesomeAligner(object):
     def __init__(
@@ -28,7 +27,7 @@ class AwesomeAligner(object):
         all_matching_methods = {"a": "inter", "m": "mwmf", "i": "itermax", "f": "fwd", "r": "rev"}
 
         if finetuned:
-            model_path = os.path.join(ABSOLUTE_PATH, "models", "awesomealign", model)
+            model_path = os.path.join(ROOT_DIR, "models", "awesomealign", model)
             self.model = transformers.BertModel.from_pretrained(model_path)
         else:
             self.model = transformers.BertModel.from_pretrained("bert-base-multilingual-cased")
@@ -170,15 +169,15 @@ def main():
     parser.add_argument("--is_few_shot", action="store_true")
     args = parser.parse_args()
 
-    with open(os.path.join(ABSOLUTE_PATH, "configs", "align_train", args.config_path + ".json"), "r") as f:
+    with open(os.path.join(ROOT_DIR, "configs", "align_train", args.config_path + ".json"), "r") as f:
         config = json.load(f)
 
     if args.dataset in ["scifact"]:
-        train_path = os.path.join(ABSOLUTE_PATH, "data", args.dataset, "ADD_HERE")
+        train_path = os.path.join(ROOT_DIR, "data", args.dataset, "ADD_HERE")
     elif args.dataset in ["fever"]:
         if args.is_few_shot:
             train_data_path = os.path.join(
-                ABSOLUTE_PATH,
+                ROOT_DIR,
                 "data",
                 args.dataset,
                 "processed_train-fewshot_use_retr_False_retr_evidence_2_dp_True_alignment_mode_simalign_max_chunks_6_alignment_model_bert_matching_method_mwmf_loose_matching_True.jsonl",
@@ -186,21 +185,21 @@ def main():
         else:
             if config["exp_name"] == "default":
                 train_data_path = os.path.join(
-                    ABSOLUTE_PATH,
+                    ROOT_DIR,
                     "data",
                     args.dataset,
                     "processed_train_use_retr_True_retr_evidence_2_dp_False_concat_op_s.jsonl",
                 )
             else:
                 train_data_path = os.path.join(
-                    ABSOLUTE_PATH,
+                    ROOT_DIR,
                     "data",
                     args.dataset,
                     "processed_train_use_retr_False_retr_evidence_7_dp_False_alignment_mode_proofver_max_chunks_6_alignment_model_bert_matching_method_mwmf_loose_matching_False.jsonl",
                 )
 
     output_dir = os.path.join(
-        ABSOLUTE_PATH, "models", "awesomealign", config["exp_name"] + "_few_shot_" + str(args.is_few_shot)
+        ROOT_DIR, "models", "awesomealign", config["exp_name"] + "_few_shot_" + str(args.is_few_shot)
     )
 
     if not os.path.exists(output_dir + "_data"):

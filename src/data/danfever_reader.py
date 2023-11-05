@@ -6,7 +6,7 @@ from collections import Counter
 
 from tqdm import tqdm
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.data.data_reader import DatasetReader
 
 
@@ -18,15 +18,15 @@ class DanFeverReader(DatasetReader):
         if split == "train":
             raise Exception("No training set defined for {}".format(self.dataset))
         elif split == "validation":
-            self.claim_file = os.path.join(ABSOLUTE_PATH, "data", self.dataset, "da_fever.tsv")
+            self.claim_file = os.path.join(ROOT_DIR, "data", self.dataset, "da_fever.tsv")
             self.proofver_file = os.path.join(
-                ABSOLUTE_PATH, "data", "fever", "proofver_data", "val_with_ids.target"
+                ROOT_DIR, "data", "fever", "proofver_data", "val_with_ids.target"
             )  # Set static to fever since no other have proof files for now
             self.retrieved_evidence_file = os.path.join(
-                ABSOLUTE_PATH, "data", self.dataset, "retrieved_evidence", "bm25_validation.txt"
+                ROOT_DIR, "data", self.dataset, "retrieved_evidence", "bm25_validation.txt"
             )
 
-        self.corpus_path = os.path.join(ABSOLUTE_PATH, "data", self.dataset, "da_wikipedia.tsv")
+        self.corpus_path = os.path.join(ROOT_DIR, "data", self.dataset, "da_wikipedia.tsv")
 
     def read_annotations(self):
         with open(self.claim_file, "r", encoding="utf-8") as f_in:

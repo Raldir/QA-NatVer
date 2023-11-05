@@ -126,11 +126,8 @@ class Config(object):
             os.makedirs(self.exp_dir)
 
         if self.exp_dir is not None:
-            self.train_pred_file = os.path.join(self.exp_dir, "train_pred.txt")
-            self.dev_pred_file = os.path.join(self.exp_dir, "dev_pred.txt")
-            self.dev_score_file = os.path.join(self.exp_dir, "dev_scores.json")
-            self.test_pred_file = os.path.join(self.exp_dir, "test_pred.txt")
-            self.test_score_file = os.path.join(self.exp_dir, "test_scores.json")
+            self.dev_score_file = os.path.join(self.exp_dir, "dev_scores_components.json")
+            self.test_score_file = os.path.join(self.exp_dir, "test_scores_components.json")
             self.save_config(os.path.join(self.exp_dir, os.path.join("config.json")))
             self.finish_flag_file = os.path.join(self.exp_dir, "exp_completed.txt")
 

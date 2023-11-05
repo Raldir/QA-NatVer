@@ -7,7 +7,6 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import TensorBoardLogger
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
-from env import ABSOLUTE_PATH
 from src.data.data_module_joint import FinetuneDataModuleJoint
 
 from src.evaluation.evaluate_natop import EvaluatorNatop

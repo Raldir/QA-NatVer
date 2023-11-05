@@ -12,7 +12,7 @@ from sklearn.metrics import (
     recall_score,
 )
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.constants import (
     CLAIM_ID,
     CLAIM_SPAN_POS,
@@ -184,7 +184,7 @@ class EvaluatorNatop:
         return generated_proofs
 
     def write_metric_content(self, generated_proofs, incorrect_ids):
-        output_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "output_logs.csv")
+        output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "output_logs.csv")
         # pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
         with open(output_path, "w") as f_out:
             for key, proof in generated_proofs.items():
@@ -200,7 +200,7 @@ class EvaluatorNatop:
                     )
                     f_out.write(pred_line)
                 f_out.write("\n")
-        output_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "output_logs_errors.csv")
+        output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "output_logs_errors.csv")
         # pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
         with open(output_path, "w") as f_out:
             for key, proof in generated_proofs.items():
@@ -274,7 +274,7 @@ class EvaluatorNatop:
         if results_span_level["accuracy"] > self.highest_acc:
             self.highest_acc = results_span_level["accuracy"]
             self.write_metric_content(generated_proofs, incorrect_ids)
-            output_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "model_output.pkl")
+            output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "model_output.pkl")
             output_raw_file = open(output_path, "wb")
             pickle.dump(accumulated, output_raw_file)
             output_raw_file.close()

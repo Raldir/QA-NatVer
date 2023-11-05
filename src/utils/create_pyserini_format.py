@@ -6,7 +6,7 @@ import argparse
 import json
 import os
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.data.danfever_reader import DanFeverReader
 from src.data.fever_reader import FeverReader
 """
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument("--dataset", required=True, help="The dataset.")
     args = parser.parse_args()
 
-    output_folder = os.path.join(ABSOLUTE_PATH, "data", args.dataset, "corpus_pyserini_" + str(args.granularity))
+    output_folder = os.path.join(ROOT_DIR, "data", args.dataset, "corpus_pyserini_" + str(args.granularity))
 
     args.output_folder = output_folder
 

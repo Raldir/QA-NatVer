@@ -2,8 +2,7 @@ import json
 import os
 from functools import reduce
 
-
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.constants import (
     CHOICES_SCORES_LIST,
     CLAIM_ID,
@@ -29,7 +28,7 @@ class EvaluatorVerdict:
         if self.config.num_classes == 2:
             prediction = [x if x != 2 else 1 for x in accumulated[PREDICTION]]
 
-        output_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "probabilities")
+        output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "probabilities")
         print(output_path)
         with open(output_path + ".json", "w") as f_out:
             for i in range(len(prediction)):

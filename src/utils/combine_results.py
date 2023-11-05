@@ -3,7 +3,7 @@ import os
 import statistics
 import sys
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 
 def select_scores(scores_list):
     score = scores_list[-1]
@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     experiment_path = sys.argv[2]
 
-    experiment_paths = os.path.join(ABSOLUTE_PATH, "exp_out", dataset, experiment_path)
+    experiment_paths = os.path.join(ROOT_DIR, "exp_out", dataset, experiment_path)
 
     subfolders = [f.path for f in os.scandir(experiment_paths) if f.is_dir()]
 

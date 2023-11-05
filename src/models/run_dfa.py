@@ -2,7 +2,7 @@ import argparse
 import json
 import os
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.constants import NATLOG_TRANSITION_MATRIX, NATOPS
 
 
@@ -35,7 +35,7 @@ def natlog_automaton(sequence):
 
 
 def run_proofver_dfa(exp_name):
-    input_path = os.path.join(ABSOLUTE_PATH, "exp_out", exp_name, "output_logs.csv")
+    input_path = os.path.join(ROOT_DIR, "exp_out", exp_name, "output_logs.csv")
     proofs = {}
     gold_proofs = {}
     with open(input_path, "r") as f_in:

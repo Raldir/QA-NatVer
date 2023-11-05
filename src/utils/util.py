@@ -13,6 +13,8 @@ import psutil
 import torch
 from pytorch_lightning import seed_everything
 
+ROOT_DIR = os.path.abspath(os.curdir)
+
 global device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

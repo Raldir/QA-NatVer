@@ -10,7 +10,7 @@ import numpy as np
 from pyserini.search.lucene import LuceneSearcher
 from tqdm import tqdm
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.data.chunking_and_alignment import DynamicSentenceAligner
 from src.data.danfever_reader import DanFeverReader
 from src.data.fever_reader import FeverReader
@@ -65,7 +65,7 @@ class DatasetProcessor(object):
                 samples_text += "_stratified"
             print("ALIGNMENT MODE", alignment_mode)
             self.save_path = os.path.join(
-                ABSOLUTE_PATH,
+                ROOT_DIR,
                 "data",
                 dataset_path,
                 "processed_{}_num_samples_{}_seed_{}_use_retr_{}_retr_evidence_{}_dp_{}_alignment_mode_{}_max_chunks_{}_alignment_model_{}_matching_method_{}_loose_matching_{}.jsonl".format(
@@ -84,7 +84,7 @@ class DatasetProcessor(object):
             )
         else:  # Do not add num samples argument since evaluation is on entire data
             self.save_path = os.path.join(
-                ABSOLUTE_PATH,
+                ROOT_DIR,
                 "data",
                 dataset_path,
                 "processed_{}_use_retr_{}_retr_evidence_{}_dp_{}_alignment_mode_{}_max_chunks_{}_alignment_model_{}_matching_method_{}_loose_matching_{}.jsonl".format(
@@ -385,40 +385,22 @@ class DatasetProcessor(object):
             self.dataset_reader = FeverReader(self.split, self.is_few_shot)
             self.proofver_proofs = self.dataset_reader.read_proofver_proofs()
             self.searcher_sentences = LuceneSearcher(
-                os.path.join(ABSOLUTE_PATH, "index", "lucene-index-{}-sentences-script").format(self.dataset)
+                os.path.join(ROOT_DIR, "index", "lucene-index-{}-sentences-script").format(self.dataset)
             )  # SimpleSearcher(self.index)
             gold_evidences = {}
 
             for i, anno in enumerate(self.dataset_reader.read_annotations()):
-                # if i <= 100000:
-                #     continue
-                # if i > 100000:
-                #     break
-                qid, query, label, evidences = anno  # Ignore gold evidence for now
-                # if self.split == "train":
-                #     if len(query.split()) > 40:
-                #         continue
+                qid, query, label, evidences = anno
                 self.claims[qid] = query
                 self.labels[qid] = label
                 gold_evidences[qid] = evidences[0]
 
             self._load_evidence(gold_evidences)
 
-        elif self.dataset == "fever_symmetric":
-            self.dataset_reader = SymmetricFeverReader(self.split, self.is_few_shot)
-            self.proofver_proofs = {}
-            for i, anno in enumerate(self.dataset_reader.read_annotations()):
-                qid, query, label, evidences = anno
-                qid = int(qid)
-                self.claims[qid] = query
-                self.labels[qid] = label
-                self.sentence_evidence[qid] = evidences
-                self.proofver_proofs[qid] = []
-
         elif self.dataset == "danfever":
             self.dataset_reader = DanFeverReader(self.split, self.is_few_shot)
             self.searcher_sentences = LuceneSearcher(
-                os.path.join(ABSOLUTE_PATH, "index", "lucene-index-{}-sentences-script").format(self.dataset)
+                os.path.join(ROOT_DIR, "index", "lucene-index-{}-sentences-script").format(self.dataset)
             )  # SimpleSearcher(self.index)
             self.proofver_proofs = {}
             gold_evidences = {}
@@ -443,7 +425,7 @@ if __name__ == "__main__":
     # Add multiple configs via "+" "dynamic_simalign_bert_mwmf_coarse+dynamic_simalign_bert_mwmf
     configs = configs.split("+")
 
-    configs_path = os.path.join(ABSOLUTE_PATH, "configs", "alignment")
+    configs_path = os.path.join(ROOT_DIR, "configs", "alignment")
 
     onlyfiles = [
         os.path.join(configs_path, f)

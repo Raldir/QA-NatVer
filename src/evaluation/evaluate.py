@@ -13,7 +13,7 @@ from sklearn.metrics import (
     recall_score,
 )
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.constants import (
     CLAIM_ID,
     CLAIM_SPAN_POS,
@@ -92,7 +92,7 @@ class Evaluator:
 
     def _read_nli_predictions(self):
         predictions = {}
-        file_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "probabilities.json")
+        file_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "probabilities.json")
         with open(file_path, "r") as f_in:
             lines = f_in.readlines()
             print("NUM LINES", len(lines))
@@ -211,7 +211,7 @@ class Evaluator:
         return generated_proofs
 
     def write_metric_content(self, generated_proofs, incorrect_ids):
-        output_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "output_logs_qanatver.csv")
+        output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "output_logs_qanatver.csv")
         # pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
         with open(output_path, "w") as f_out:
             for key, proof in generated_proofs.items():
@@ -228,7 +228,7 @@ class Evaluator:
                     f_out.write(pred_line)
                 f_out.write("\n")
         output_path = os.path.join(
-            ABSOLUTE_PATH, "exp_out", self.config.exp_name, "output_logs_errors_qanatver.csv"
+            ROOT_DIR, "exp_out", self.config.exp_name, "output_logs_errors_qanatver.csv"
         )
         # pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
         with open(output_path, "w") as f_out:
@@ -305,7 +305,7 @@ class Evaluator:
             self.highest_acc = results_span_level["accuracy"]
             self.write_metric_content(generated_proofs, incorrect_ids)
             output_path = os.path.join(
-                ABSOLUTE_PATH, "exp_out", self.config.exp_name, "model_output_qanatver.pkl"
+                ROOT_DIR, "exp_out", self.config.exp_name, "model_output_qanatver.pkl"
             )
             output_raw_file = open(output_path, "wb")
             pickle.dump(accumulated, output_raw_file)
@@ -316,11 +316,11 @@ class Evaluator:
         return results_span_level
 
     def run_cached_data(self):
-        input_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "model_output.pkl")
+        input_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "model_output.pkl")
         input_raw_file = open(input_path, "rb")
         accumulated = pickle.load(input_raw_file)
         input_raw_file.close()
         scores = self.compute_metric(accumulated)
-        output_path = os.path.join(ABSOLUTE_PATH, "exp_out", self.config.exp_name, "dev_scores_qanatver.json")
+        output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "dev_scores_qanatver.json")
         with open(output_path, "w") as f_out:
             f_out.write("{}\t".format(json.dumps(scores)))

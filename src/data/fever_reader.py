@@ -1,7 +1,6 @@
 import json
 import os
 
-from env import ABSOLUTE_PATH
 from src.data.data_reader import DatasetReader
 
 
@@ -10,26 +9,26 @@ class FeverReader(DatasetReader):
         DatasetReader.__init__(self, split, is_few_shot, granularity)
         self.dataset = "fever"
         if split == "train" and not is_few_shot:
-            self.claim_file = os.path.join(ABSOLUTE_PATH, "data", "fever", "train.jsonl")
+            self.claim_file = os.path.join(ROOT_DIR, "data", "fever", "train.jsonl")
             self.retrieved_evidence_file = os.path.join(
-                ABSOLUTE_PATH, "data", "fever", "retrieved_evidence", "stammbach_evidence_train.txt"
+                ROOT_DIR, "data", "fever", "retrieved_evidence", "stammbach_evidence_train.txt"
             )
-            self.proofver_file = os.path.join(ABSOLUTE_PATH, "data", "fever", "proofver_data", "train_with_ids.target")
+            self.proofver_file = os.path.join(ROOT_DIR, "data", "fever", "proofver_data", "train_with_ids.target")
         elif split == "train":
-            self.claim_file = os.path.join(ABSOLUTE_PATH, "data", "fever", "train.jsonl")
+            self.claim_file = os.path.join(ROOT_DIR, "data", "fever", "train.jsonl")
             self.retrieved_evidence_file = os.path.join(
-                ABSOLUTE_PATH, "data", "fever", "retrieved_evidence", "stammbach_evidence_train.txt"
+                ROOT_DIR, "data", "fever", "retrieved_evidence", "stammbach_evidence_train.txt"
             )
             self.proofver_file = os.path.join(
-                ABSOLUTE_PATH, "data", "fever", "proofver_data", "train_with_ids_fewshot.target"
+                ROOT_DIR, "data", "fever", "proofver_data", "train_with_ids_fewshot.target"
             )
         elif split == "validation":
-            self.claim_file = os.path.join(ABSOLUTE_PATH, "data", self.dataset, "shared_task_dev.jsonl")
+            self.claim_file = os.path.join(ROOT_DIR, "data", self.dataset, "shared_task_dev.jsonl")
             self.retrieved_evidence_file = os.path.join(
-                ABSOLUTE_PATH, "data", self.dataset, "retrieved_evidence", "stammbach_evidence_validation.txt"
+                ROOT_DIR, "data", self.dataset, "retrieved_evidence", "stammbach_evidence_validation.txt"
             )
             self.proofver_file = os.path.join(
-                ABSOLUTE_PATH, "data", "fever", "proofver_data", "val_with_ids.target"
+                ROOT_DIR, "data", "fever", "proofver_data", "val_with_ids.target"
             )  # Set static to fever since no other have proof files for now
 
         self.granularity = granularity

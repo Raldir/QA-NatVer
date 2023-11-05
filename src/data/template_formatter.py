@@ -3,7 +3,7 @@ import os
 
 import numpy as np
 
-from env import ABSOLUTE_PATH
+from src.utils.util import ROOT_DIR
 from src.constants import EVIDENCE_INFERENCE_FILL, NATOPS, NATOPS_TEXT, NATOPS_TO_TEXT_MAP, NATOPS_WO_INDEP
 
 
@@ -21,7 +21,7 @@ class TemplateFormatter(object):
         self.question_types = NATOPS_TEXT
         self.op_to_type_map = NATOPS_TO_TEXT_MAP  # what about #
         self.neg_token = neg_token
-        self.data_path = os.path.join(ABSOLUTE_PATH, "data", "handwritten_questions", "setting" + str(setting_nr))
+        self.data_path = os.path.join(ROOT_DIR, "data", "handwritten_questions", "setting" + str(setting_nr))
 
         self.randomize = randomize
         self.template_id = template_id
