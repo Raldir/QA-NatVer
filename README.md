@@ -1,6 +1,11 @@
 ## Installation
 
-Setup a new conda environment, e.g. `python3.9` (tested only Python version 3.9)
+Setup a new conda environment, e.g. `python3.9` (tested only Python version 3.9):
+
+```bash
+conda create -n qa_natver python=3.9
+conda activate qa_natver
+```
 
 Then install QA-NatVer and all relevant dependencies:
 ```bash
