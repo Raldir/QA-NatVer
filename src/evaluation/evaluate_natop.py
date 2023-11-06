@@ -12,17 +12,10 @@ from sklearn.metrics import (
     recall_score,
 )
 
-from src.utils.util import ROOT_DIR
-from src.constants import (
-    CLAIM_ID,
-    CLAIM_SPAN_POS,
-    LABEL,
-    NATOPS,
-    OP,
-    PRED_PROB_LIST,
-    PREDICTION,
-)
+from src.constants import CLAIM_ID, CLAIM_SPAN_POS, LABEL, NATOPS, OP, PRED_PROB_LIST, PREDICTION
 from src.models.run_dfa import natlog_automaton
+from src.utils.util import ROOT_DIR
+
 
 class EvaluatorNatop:
     def __init__(self, config, datamodule):

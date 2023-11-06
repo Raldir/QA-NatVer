@@ -4,10 +4,9 @@ from pytorch_lightning import Trainer
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 from src.data.data_module_joint import FinetuneDataModuleJoint
-
+from src.evaluation.evaluate import Evaluator
 from src.evaluation.evaluate_natop import EvaluatorNatop
 from src.evaluation.evaluate_verdict import EvaluatorVerdict
-from src.evaluation.evaluate import Evaluator
 from src.lit_module import LitModule
 from src.models.tfew import EncoderDecoder
 from src.utils.Config import Config
@@ -30,7 +29,7 @@ def main(config):
     :param config:
     :return:
     """
-    
+
     assert config.load_weight != "", "Need to specify a model to load..."
 
     tokenizer, model = get_transformer(config)
@@ -61,8 +60,6 @@ def main(config):
     # Use scores to select the most appropriate proof given the average of both scores
     evaluator = Evaluator(config, datamodule_natop)
     evaluator.run_cached_data()
-
-
 
 
 if __name__ == "__main__":

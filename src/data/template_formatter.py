@@ -3,8 +3,8 @@ import os
 
 import numpy as np
 
-from src.utils.util import ROOT_DIR
 from src.constants import NATOPS_TEXT, NATOPS_TO_TEXT_MAP, NATOPS_WO_INDEP
+from src.utils.util import ROOT_DIR
 
 
 class TemplateFormatter(object):
@@ -83,8 +83,8 @@ class TemplateFormatter(object):
 
         for op in ops:
             applied_templates_op = self._apply_component_to_templates(
-                    self.questions[self.op_to_type_map[op]], claim_span, "span"
-                )
+                self.questions[self.op_to_type_map[op]], claim_span, "span"
+            )
             applied_templates_op = self._apply_component_to_templates(applied_templates_op, ev_span, "evidence")
             applied_templates_collection.append(applied_templates_op)
 

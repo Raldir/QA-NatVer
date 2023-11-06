@@ -8,6 +8,7 @@ import transformers
 
 from src.utils.util import ROOT_DIR
 
+
 class AwesomeAligner(object):
     def __init__(
         self,

@@ -1,9 +1,8 @@
 import os
 import re
 
-
-from src.utils.util import ROOT_DIR
 from src.data.data_reader import DatasetReader
+from src.utils.util import ROOT_DIR
 
 
 class DanFeverReader(DatasetReader):

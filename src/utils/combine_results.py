@@ -5,6 +5,7 @@ import sys
 
 from src.utils.util import ROOT_DIR
 
+
 def select_scores(scores_list):
     score = scores_list[-1]
     score = {key.replace("proof_", ""): value for key, value in score.items()}

@@ -2,14 +2,9 @@ import json
 import os
 from functools import reduce
 
-from src.utils.util import ROOT_DIR
-from src.constants import (
-    CHOICES_SCORES_LIST,
-    CLAIM_ID,
-    LABEL,
-    PREDICTION,
-)
+from src.constants import CHOICES_SCORES_LIST, CLAIM_ID, LABEL, PREDICTION
 from src.models.run_dfa import natlog_automaton
+from src.utils.util import ROOT_DIR
 
 LABELS = ["SUPPORTS", "REFUTES", "NOT ENOUGH INFO"]
 
@@ -36,7 +31,6 @@ class EvaluatorVerdict:
                 prediction_prob = prediction_probs[i]
                 curr_label_to_pred = {LABELS[i]: x for i, x in enumerate(prediction_prob)}
                 f_out.write("{}\t{}\n".format(curr_id, json.dumps(curr_label_to_pred)))
-
 
         # Could also produce some scores for verdict QA part but not of interest here.
         return {"accuracy": 0.0, "recall": 0.0, "precision": 0.0, "f1": 0.0}

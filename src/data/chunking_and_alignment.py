@@ -14,7 +14,6 @@ from src.models.awesomealign import AwesomeAligner
 from src.models.simalign import SentenceAligner
 
 
-
 class DynamicSentenceAligner(object):
     def __init__(
         self,
@@ -25,7 +24,7 @@ class DynamicSentenceAligner(object):
         num_retrieved_evidence=2,
         max_chunks=6,
         alignment_mode="simalign",
-        loose_matching=False,  # name misleading (legacy), but essentially allows merging of up to 4 spans, instead of only three 
+        loose_matching=False,  # name misleading (legacy), but essentially allows merging of up to 4 spans, instead of only three
         dynamic_parsing=True,  # Whether to use dyamic parsing, or only static chunking
     ):
         assert alignment_mode in [
@@ -158,7 +157,6 @@ class DynamicSentenceAligner(object):
             updated_option = [old_to_new_mapping[x] for x in option]
             if updated_option not in updated_options:
                 updated_options.append(updated_option)
-
 
         claim_token_to_span_map_new = {}
         for key, value_list in claim_token_to_span_map.items():
@@ -309,7 +307,7 @@ class DynamicSentenceAligner(object):
         evidences = []
         # print(evidences_processed)
         for evidence in evidences_processed.split(" </s> ")[:num_retrieved_evidence]:
-            evidence = evidence.replace("[ ", "").replace(" ]", " PPPPPPPPP") # Title + content
+            evidence = evidence.replace("[ ", "").replace(" ]", " PPPPPPPPP")  # Title + content
             evidence = evidence.split(" PPPPPPPPP")  # Remove this part, could use regex lol
             if len(evidence) > 1:  # Symmetric Fever does not have seperated title
                 evidences.append(evidence[0].strip() + " " + evidence[1].strip())

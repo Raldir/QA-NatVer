@@ -13,17 +13,9 @@ from sklearn.metrics import (
     recall_score,
 )
 
-from src.utils.util import ROOT_DIR
-from src.constants import (
-    CLAIM_ID,
-    CLAIM_SPAN_POS,
-    LABEL,
-    NATOPS,
-    OP,
-    PRED_PROB_LIST,
-    PREDICTION,
-)
+from src.constants import CLAIM_ID, CLAIM_SPAN_POS, LABEL, NATOPS, OP, PRED_PROB_LIST, PREDICTION
 from src.models.run_dfa import natlog_automaton
+from src.utils.util import ROOT_DIR
 
 
 class Evaluator:
@@ -103,7 +95,6 @@ class Evaluator:
         return predictions
 
     def _select_proof(self, span_results, possible_parses, nli_prediction):
-
         if possible_parses:
             all_proofs = []
             predicted_verdict = []
@@ -227,9 +218,7 @@ class Evaluator:
                     )
                     f_out.write(pred_line)
                 f_out.write("\n")
-        output_path = os.path.join(
-            ROOT_DIR, "exp_out", self.config.exp_name, "output_logs_errors_qanatver.csv"
-        )
+        output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "output_logs_errors_qanatver.csv")
         # pathlib.Path(output_path).mkdir(parents=True, exist_ok=True)
         with open(output_path, "w") as f_out:
             for key, proof in generated_proofs.items():
@@ -304,9 +293,7 @@ class Evaluator:
         if results_span_level["accuracy"] > self.highest_acc:
             self.highest_acc = results_span_level["accuracy"]
             self.write_metric_content(generated_proofs, incorrect_ids)
-            output_path = os.path.join(
-                ROOT_DIR, "exp_out", self.config.exp_name, "model_output_qanatver.pkl"
-            )
+            output_path = os.path.join(ROOT_DIR, "exp_out", self.config.exp_name, "model_output_qanatver.pkl")
             output_raw_file = open(output_path, "wb")
             pickle.dump(accumulated, output_raw_file)
             output_raw_file.close()

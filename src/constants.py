@@ -41,8 +41,8 @@ NATLOG_TRANSITION_MATRIX = {
     },
 }
 
-EVIDENCE_INFERENCE_FILL = "FILL" # TODO: Fillers for now
-OP_INFERENCE_FILL = "=" # TODO: Fillers for now
+EVIDENCE_INFERENCE_FILL = "FILL"  # TODO: Fillers for now
+OP_INFERENCE_FILL = "="  # TODO: Fillers for now
 
 PREDICTION = "prediction"
 PRED_PROB = "prediction_prob"

@@ -2,8 +2,8 @@ import argparse
 import json
 import os
 
-from src.utils.util import ROOT_DIR
 from src.constants import NATLOG_TRANSITION_MATRIX, NATOPS
+from src.utils.util import ROOT_DIR
 
 
 def natlog_automaton(sequence):

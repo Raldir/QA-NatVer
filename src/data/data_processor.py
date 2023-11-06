@@ -7,10 +7,10 @@ import traceback
 
 from tqdm import tqdm
 
-from src.utils.util import ROOT_DIR
 from src.data.chunking_and_alignment import DynamicSentenceAligner
 from src.data.danfever_reader import DanFeverReader
 from src.data.fever_reader import FeverReader
+from src.utils.util import ROOT_DIR
 
 
 class DatasetProcessor(object):
@@ -60,7 +60,6 @@ class DatasetProcessor(object):
         self.matching_method = matching_method
         self.loose_matching = loose_matching
         self.sentence_transformer = sentence_transformer
-    
 
         self.claims = {}
         self.labels = {}
@@ -70,8 +69,7 @@ class DatasetProcessor(object):
         self.alignments = {}
         self.proofver_proofs = {}
 
-
-        if split != "test": # Load existing data for training and dev if it exists
+        if split != "test":  # Load existing data for training and dev if it exists
             self._set_save_path()
 
             print("Trying to find data from {} ...".format(self.save_path))
@@ -91,9 +89,9 @@ class DatasetProcessor(object):
                 return
 
             self.setup_dataset()
-        
+
         else:
-            test_path  =  os.path.join(ROOT_DIR, "data", "test.jsonl")
+            test_path = os.path.join(ROOT_DIR, "data", "test.jsonl")
             with open(test_path, "r") as f_in:
                 lines = f_in.readlines()
                 for line in lines:
@@ -154,7 +152,6 @@ class DatasetProcessor(object):
                 self.alignments[qid] = aligned["alignment"]
 
         self._save_data()
-
 
     def _set_save_path(self):
         dataset_path = self.dataset
@@ -347,18 +344,21 @@ class DatasetProcessor(object):
     def setup_dataset(self):
         if self.dataset == "fever":
             from pyserini.search.lucene import LuceneSearcher
+
             self.dataset_reader = FeverReader(self.split, self.is_few_shot)
             self.proofver_proofs = self.dataset_reader.read_proofver_proofs()
 
-            index_path =  os.path.join(ROOT_DIR, "index", "lucene-index-{}-sentences-script").format(self.dataset)
+            index_path = os.path.join(ROOT_DIR, "index", "lucene-index-{}-sentences-script").format(self.dataset)
 
             if os.path.exists(index_path):
                 self.searcher_sentences = LuceneSearcher(index_path)  # SimpleSearcher(self.index)
                 gold_evidences = {}
             else:
-                print("Index Path to index for retrieving evidence not found. Make sure you download the index as described in the repository at: https://github.com/Raldir/QA-NatVer")
+                print(
+                    "Index Path to index for retrieving evidence not found. Make sure you download the index as described in the repository at: https://github.com/Raldir/QA-NatVer"
+                )
                 sys.exit()
-                
+
             for i, anno in enumerate(self.dataset_reader.read_annotations()):
                 qid, query, label, evidences = anno
                 self.claims[qid] = query
@@ -443,7 +443,6 @@ class DatasetProcessor(object):
                 all_keys.add(acc_key)
                 label_stats[lab] += 1
             print("Label Distributions: ", label_stats)
-
 
 
 if __name__ == "__main__":

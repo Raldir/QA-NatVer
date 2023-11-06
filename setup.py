@@ -3,6 +3,8 @@ from setuptools import find_packages, setup
 import pathlib
 
 # Commands: 
+# python3 -m black src/ --line-length 11
+# python3 -m isort src/
 # python setup.py sdist
 # twine upload dist/*
 # The directory containing this file
@@ -25,6 +27,8 @@ INSTALL_REQS = [
     "pandas",
     "tqdm",
     "accelerate",
+    "black",
+    "isort"
 ]
 
 setup(

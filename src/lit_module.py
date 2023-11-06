@@ -7,14 +7,7 @@ import torch.distributed as dist
 import torch.nn.functional as F
 from pytorch_lightning import LightningModule
 
-from src.constants import (
-    CHOICES_SCORES,
-    IDX,
-    LABEL,
-    LM_TARGET,
-    NEG_INDEX,
-    TEMPLATE_LOGITS,
-)
+from src.constants import CHOICES_SCORES, IDX, LABEL, LM_TARGET, NEG_INDEX, TEMPLATE_LOGITS
 from src.utils.get_optimizer import get_optimizer
 from src.utils.get_scheduler import get_scheduler
 
@@ -33,11 +26,10 @@ class LitModule(LightningModule):
 
         self._last_global_step_saved = -1
 
-
     def set_data_and_evaluator(self, datamodule, evaluator):
         self.datamodule = datamodule
         self.evaluator = evaluator
-        
+
     def _compute_lm_loss(self, output, label):
         logits = output[TEMPLATE_LOGITS]
         lm_target = output[LM_TARGET]
@@ -182,7 +174,6 @@ class LitModule(LightningModule):
             metrics = {}
 
         return metrics
-    
 
     def configure_optimizers(self):
         optimizer, self.trainable_param_names = get_optimizer(self.model, self.config)

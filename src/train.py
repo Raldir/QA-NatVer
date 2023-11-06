@@ -4,10 +4,9 @@ from pytorch_lightning import Trainer
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 from src.data.data_module_joint import FinetuneDataModuleJoint
-
+from src.evaluation.evaluate import Evaluator
 from src.evaluation.evaluate_natop import EvaluatorNatop
 from src.evaluation.evaluate_verdict import EvaluatorVerdict
-from src.evaluation.evaluate import Evaluator
 from src.lit_module import LitModule
 from src.models.tfew import EncoderDecoder
 from src.utils.Config import Config
@@ -56,9 +55,11 @@ def main(config):
         strategy=config.compute_strategy if config.compute_strategy != "none" else None,
         log_every_n_steps=20,
         max_steps=config.num_steps,
-        num_sanity_val_steps=0, # Important to have this flag to merge predictions over multiple batches
+        num_sanity_val_steps=0,  # Important to have this flag to merge predictions over multiple batches
         check_val_every_n_epoch=None,  # config.check_val_every_n_epoch,
-        val_check_interval=int((config.num_steps) * config.grad_accum_factor), # Since no validation, evaluate at last step
+        val_check_interval=int(
+            (config.num_steps) * config.grad_accum_factor
+        ),  # Since no validation, evaluate at last step
         accumulate_grad_batches=config.grad_accum_factor,
         gradient_clip_val=config.grad_clip_norm,
     )
@@ -71,8 +72,6 @@ def main(config):
     # Use scores to select the most appropriate proof given the average of both scores
     evaluator = Evaluator(config, datamodule_natop)
     evaluator.run_cached_data()
-
-
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ import os
 
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
+
 class Config(object):
     def __init__(self, filenames=None, kwargs=None):
         # Experiment configs
@@ -28,23 +29,23 @@ class Config(object):
         self.batch_size = 8
         self.eval_batch_size = 32
         self.num_workers = 8
-        self.negative_samples_ratio = 1 # Number of negative samples per span
+        self.negative_samples_ratio = 1  # Number of negative samples per span
         self.use_retrieved_evidence = (
             "False"  # Select from True False Only (True is first mode, where we use gold and fill up with retrieved)
         )
         self.num_retrieved_evidence = 2
-        self.neg_token = "No" # TODO: Oracle, remove
-        self.nei_token = "NOT ENOUGH INFO" # TODO: Oracle, remove
+        self.neg_token = "No"  # TODO: Oracle, remove
+        self.nei_token = "NOT ENOUGH INFO"  # TODO: Oracle, remove
         self.zero_shot = False
         self.few_shot = False
         self.dynamic_parsing = False
-        self.dynamic_parsing_nei_threshold = 0.5 # probability score od independence predictions
+        self.dynamic_parsing_nei_threshold = 0.5  # probability score od independence predictions
 
         # Template Settings
-        self.randomize_templates = True # Selects one template at random, following T-Few, performs similarly well to averaging over all, much faster.
+        self.randomize_templates = True  # Selects one template at random, following T-Few, performs similarly well to averaging over all, much faster.
         self.template_setting_id = 1
-        self.num_questions = 1 # How many questions to consider, only when randomize_templates=False
-        self.num_templates = 1 # How many templates to consider, only when randomize_templates=False
+        self.num_questions = 1  # How many questions to consider, only when randomize_templates=False
+        self.num_templates = 1  # How many templates to consider, only when randomize_templates=False
         # Specify concrete question or template to be used, -1 does not select one.
         self.question_id = -1
         self.template_id = -1

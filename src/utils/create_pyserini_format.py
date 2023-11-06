@@ -6,9 +6,10 @@ import argparse
 import json
 import os
 
-from src.utils.util import ROOT_DIR
 from src.data.danfever_reader import DanFeverReader
 from src.data.fever_reader import FeverReader
+from src.utils.util import ROOT_DIR
+
 """
 The name of this file is a bit misleading since the original FEVER dataset is
 also in JSONL format. This script converts them into a JSONL format compatible

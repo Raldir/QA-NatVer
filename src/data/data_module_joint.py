@@ -22,6 +22,7 @@ from src.constants import (
 from src.data.data_processor import DatasetProcessor
 from src.data.template_formatter import TemplateFormatter
 
+
 class FinetuneDataModuleJoint(LightningDataModule):
     def init_spacy(self):
         from spacy.lang.en import English
@@ -117,9 +118,7 @@ class FinetuneDataModuleJoint(LightningDataModule):
                     qid += 1
         return processed_data
 
-        
     def _process_dataset_verdict(self, dataset, qid_start, inference=False):
-
         # Mapping between label and answer choice representation
         LABELS = ["SUPPORTS", "REFUTES", "NOT ENOUGH INFO"]
         ANSWER_CHOICES = ["Yes", "No", "Neutral"]
@@ -166,7 +165,7 @@ class FinetuneDataModuleJoint(LightningDataModule):
             processed_data.update(processed_data_verdict)
         else:
             if mode == "verdict":
-                processed_data = self._process_dataset_verdict(dataset, inference=inference, qid_start = 0)
+                processed_data = self._process_dataset_verdict(dataset, inference=inference, qid_start=0)
             elif mode == "natop":
                 processed_data = self._process_dataset_natop(dataset, inference=inference)
             else:
@@ -207,9 +206,9 @@ class FinetuneDataModuleJoint(LightningDataModule):
                 alignment_mode=self.config.alignment_mode,
                 loose_matching=self.config.loose_matching,
             )
-            self.train_dataset = self._process_dataset(self.dataset_or, mode = self.mode)
+            self.train_dataset = self._process_dataset(self.dataset_or, mode=self.mode)
             self.train_dataset = FinetuneDatasetWithTemplate(
-            self.train_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
+                self.train_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
             )
             print(f"Train size {len(self.train_dataset)}")
 
@@ -229,9 +228,9 @@ class FinetuneDataModuleJoint(LightningDataModule):
                 alignment_mode=self.config.alignment_mode,
                 loose_matching=self.config.loose_matching,
             )
-            self.dev_dataset = self._process_dataset(self.dev_dataset_or, mode = self.mode, inference=True)
+            self.dev_dataset = self._process_dataset(self.dev_dataset_or, mode=self.mode, inference=True)
             self.dev_dataset = FinetuneDatasetWithTemplate(
-            self.dev_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
+                self.dev_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
             )
             self.join_splits()  # create a single field dataset_or that can be used later to access info
             print(f"Val size {len(self.dev_dataset)}")
@@ -252,13 +251,12 @@ class FinetuneDataModuleJoint(LightningDataModule):
                 alignment_mode=self.config.alignment_mode,
                 loose_matching=self.config.loose_matching,
             )
-            self.test_dataset = self._process_dataset(self.test_dataset_or, mode = self.mode, inference=True)
+            self.test_dataset = self._process_dataset(self.test_dataset_or, mode=self.mode, inference=True)
             self.test_dataset = FinetuneDatasetWithTemplate(
-            self.test_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
+                self.test_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
             )
             self.dataset_or = self.test_dataset_or
             print(f"Eval size {len(self.test_dataset)}")
-
 
     def train_dataloader(self):
         return torch.utils.data.DataLoader(
@@ -291,7 +289,7 @@ class FinetuneDataModuleJoint(LightningDataModule):
             ),  # cls_token_id # eos_token_id
             num_workers=min([self.config.eval_batch_size, self.config.num_workers]),
         )
-    
+
 
 class FinetuneDatasetWithTemplate(torch.utils.data.dataset.Dataset):
     def __init__(self, dataset, tokenizer, max_seq_len, max_answer_choice_length, add_special_tokens=True):
