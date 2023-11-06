@@ -85,7 +85,7 @@ QA-NatVer with a BART0 backbone:
 
 
 QA-NatVer with a Flan-T5-xl backbone:
-\https://drive.google.com/file/d/1Vr-dAS3h7r8Qhl7RQveDuAzzI6UM2nu2/view?usp=sharing
+`\https://drive.google.com/file/d/1Vr-dAS3h7r8Qhl7RQveDuAzzI6UM2nu2/view?usp=sharing`
 
 
 Download one of the QA-NatVer checkpoints and put `finish.pt` into `models/BART0`:
