@@ -57,7 +57,7 @@ Note if you want to run the preprocessing (chunking and alignment pipeline yours
 To train a QA-NatVer model run the following command:
 
 ```bash
-./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local bart0 32 0
+./bin/train_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local bart0 32 0
 ```
 
 The arguments correspond to config files in `configs/`, as following:
