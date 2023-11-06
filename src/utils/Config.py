@@ -10,13 +10,12 @@ class Config(object):
         self.exp_dir = None
         self.exp_name = None
         self.seed = 42
-        self.run_joint = False
 
         # Model Configs
         self.model = "EncDec"
         self.max_seq_len = 512
         self.max_answer_choice_length = 150
-        self.origin_model = "yuchenlin/BART0pp"  # "facebook/bart-large-mnli yuchenlin/BART0pp"  # "bigscience/T0_3B"
+        self.origin_model = "yuchenlin/BART0pp"
         self.load_weight = ""
         self.nli_file_path = "deberta-v3-nli_zero_shot_False_probabilities.json"
         self.gradient_checkpointing = True

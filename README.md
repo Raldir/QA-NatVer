@@ -1,4 +1,4 @@
-### Installation
+## Installation
 
 Setup a new conda environment, e.g. `python3.9` (tested only Python version 3.9)
 
@@ -7,13 +7,16 @@ Then install QA-NatVer and all relevant dependencies:
 python3 -m pip install -e .
 ```
 
-Finally, download Java and place it into the root path of the repository:
-https://jdk.java.net/19/
+## Training
 
-Set Java Path:
-export JAVA_HOME=$PWD/QA-NatVer/jdk-19.0.2/
 
-#### Downloading data
+### Preprocessing
+
+The repository already contains the preprocessed, chunked, and aligned FEVER data both for the few-shot training and validation data, located at `data/fever`. 
+
+However, if you want to preprocess data yourself, you need to execute the following steps:
+
+#### FEVER Dataset
 
 Download the FEVER dataset into data/fever:
 
@@ -22,8 +25,7 @@ wget https://fever.ai/download/fever/train.jsonl -P data/fever/
 wget https://fever.ai/download/fever/shared_task_dev.jsonl -P data/fever/
 ```
 
-
-#### Download alignment model
+#### Alignment model
 
 Either download the alignment model and place it in ```models/awesomealign``` from here:
 
@@ -31,15 +33,26 @@ Either download the alignment model and place it in ```models/awesomealign``` fr
 
 or use the non-finetuned alignment model, by calling the config file `dynamic_awesomealign_bert_mwmf_coarse_only_retrieval_5_ev` when running the training command below.
 
+#### Retrieved data
+The pipeline to incorporate retrieved data uses Pyserini. The dependencies are already installed, however you also need to download Java and place it into the root path of the repository:
+https://jdk.java.net/19/
 
-### Run FEVER
+Set Java Path:
+export JAVA_HOME=$PWD/QA-NatVer/jdk-19.0.2/
+
+To use retrieved data, you need to add a file into `data/fever/retrieved_evidence` in the [pyserini format](https://github.com/castorini/pyserini), with the associated index. To create a Pyserini index, you first have to convert the json files into the right format (see `src/utils/create_pyserini_format.py`), and then create the index via Pyserini:
+
+```bash
+python3 -m pyserini.index.lucene --collection JsonCollection --input data/fever/sentences/ --index index/lucene-index-fever-sentences-script --generator DefaultLuceneDocumentGenerator --threads 1 --storePositions --storeDocvectors --storeRaw
+```
+
 
 Note if you want to run the preprocessing (chunking and alignment pipeline yourself), you need to add the actual fever data into the appropriate data folder (see previous step). You might further see an error after preprocessing the training data, before it processes the validation data. That's ok, just run the program again. This is a bug that will be fixed.
 
 To train a QA-NatVer model run the following command:
 
 ```bash
-./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local bart0 32 42
+./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local bart0 32 0
 ```
 
 The arguments correspond to config files in `configs/`, as following:
@@ -48,7 +61,7 @@ The arguments correspond to config files in `configs/`, as following:
 3. environment: `local`
 4. model: `bart0`
 5. samples: `32`
-6. seed: `42`
+6. seed: `0`
 
 You can freely modify the hyperparameters in the respective config files to modify he training process. For instance instead of using BART0, you can train QA-NatVer with Flan-T5:
 
@@ -58,8 +71,19 @@ You can freely modify the hyperparameters in the respective config files to modi
 
  All available arguments can be found in `src/utils/Config.py`.
  
+## Inference
 
-### Run DanFEVER (not tested yet)
+If you want to use QA-NatVer out of the box for existing claim evidence pairs, you can use existing models. Download QA-NatVer with the BART0 backbone and put `finish.pt` into `models/BART0`:
+
+`https://drive.google.com/file/d/1fSDA7rlp39tEDAehoN8EeybEf9wSqEBo/view?usp=sharing`
+
+The input data should be a placed into `data/test.jsonl` file, with each line consisting of am `id`, `claim`, and an `evidence` field. The evidence field is expected to be a list of sentences. Look at the dummy data as found in the repository. To run the input data on QA-NatVer call:
+
+```bash
+./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local_saving bart0 32 0
+```
+
+### Run DanFEVER (TODO)
 
 With arguments being the processed data, the dataset, the environment, the model, the sample size, and the seed.
 
