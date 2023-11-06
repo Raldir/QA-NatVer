@@ -78,9 +78,17 @@ You can freely modify the hyperparameters in the respective config files to modi
  
 ## Inference
 
-If you want to use QA-NatVer out of the box for existing claim evidence pairs, you can use existing models. Download QA-NatVer with the BART0 backbone and put `finish.pt` into `models/BART0`:
+If you want to use QA-NatVer out of the box for existing claim evidence pairs, you can use existing models. There are currently two models available, trained on 32 FEVER samples: 
 
+QA-NatVer with a BART0 backbone:
 `https://drive.google.com/file/d/1fSDA7rlp39tEDAehoN8EeybEf9wSqEBo/view?usp=sharing`
+
+
+QA-NatVer with a Flan-T5-xl backbone:
+\https://drive.google.com/file/d/1Vr-dAS3h7r8Qhl7RQveDuAzzI6UM2nu2/view?usp=sharing
+
+
+Download one of the QA-NatVer checkpoints and put `finish.pt` into `models/BART0`:
 
 The input data should be a placed into `data/test.jsonl` file, with each line consisting of am `id`, `claim`, and an `evidence` field. The evidence field is expected to be a list of sentences. Look at the dummy data as found in the repository. The QA-NatVer with the Flan-T5 backbone will be made available soon.
 
