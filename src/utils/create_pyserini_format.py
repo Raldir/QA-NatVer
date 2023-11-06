@@ -18,12 +18,10 @@ with anserini.
 
 def convert_collection(args):
     print("Converting collection...")
-    if args.dataset == "scifact":
-        reader = SciFactReader("validation", True, args.granularity)
-    elif args.dataset == "danfever":
+    if args.dataset == "fever":
+        reader = FeverReader("validation", True, args.granularity)
+    if args.dataset == "danfever":
         reader = DanFeverReader("validation", True, args.granularity)
-    elif args.dataset == "hover":
-        reader = HoverReader("validation", True, args.granularity)
 
     iterator = reader.read_corpus()
     doc_index = 0

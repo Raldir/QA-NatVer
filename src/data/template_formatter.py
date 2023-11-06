@@ -4,7 +4,7 @@ import os
 import numpy as np
 
 from src.utils.util import ROOT_DIR
-from src.constants import EVIDENCE_INFERENCE_FILL, NATOPS, NATOPS_TEXT, NATOPS_TO_TEXT_MAP, NATOPS_WO_INDEP
+from src.constants import NATOPS_TEXT, NATOPS_TO_TEXT_MAP, NATOPS_WO_INDEP
 
 
 class TemplateFormatter(object):

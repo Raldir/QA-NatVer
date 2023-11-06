@@ -256,8 +256,6 @@ class EvaluatorNatop:
         f1 = f1_score(preds, gold, average="macro")
         acc = accuracy_score(preds, gold)
 
-        print(classification_report(gold, preds))
-
         return [acc, recall, precision, f1, incorrect_ids]
 
     def compute_metric(self, accumulated):
@@ -278,8 +276,5 @@ class EvaluatorNatop:
             output_raw_file = open(output_path, "wb")
             pickle.dump(accumulated, output_raw_file)
             output_raw_file.close()
-
-        print("acc: {}, recall: {}, precision: {}, f1: {}".format(accuracy, recall, precision, f1))
-        print("____________________________________")
 
         return results_span_level

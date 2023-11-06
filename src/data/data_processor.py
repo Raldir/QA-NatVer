@@ -5,9 +5,6 @@ import random
 import sys
 import traceback
 
-import numpy as np
-
-from pyserini.search.lucene import LuceneSearcher
 from tqdm import tqdm
 
 from src.utils.util import ROOT_DIR
@@ -57,64 +54,13 @@ class DatasetProcessor(object):
         self.num_retrieved_evidence = num_retrieved_evidence
         self.use_retrieved_evidence = use_retrieved_evidence
         self.ev_sentence_concat_op = ev_sentence_concat_op
-
-        dataset_path = self.dataset
-        if "train" in self.split:
-            samples_text = str(self.num_samples)
-            if self.stratified_sampling:
-                samples_text += "_stratified"
-            print("ALIGNMENT MODE", alignment_mode)
-            self.save_path = os.path.join(
-                ROOT_DIR,
-                "data",
-                dataset_path,
-                "processed_{}_num_samples_{}_seed_{}_use_retr_{}_retr_evidence_{}_dp_{}_alignment_mode_{}_max_chunks_{}_alignment_model_{}_matching_method_{}_loose_matching_{}.jsonl".format(
-                    self.split_name,
-                    samples_text,
-                    self.seed,
-                    use_retrieved_evidence,
-                    num_retrieved_evidence,
-                    dynamic_parsing,
-                    alignment_mode,
-                    max_chunks,
-                    alignment_model,
-                    matching_method,
-                    loose_matching,
-                ),
-            )
-        else:  # Do not add num samples argument since evaluation is on entire data
-            self.save_path = os.path.join(
-                ROOT_DIR,
-                "data",
-                dataset_path,
-                "processed_{}_use_retr_{}_retr_evidence_{}_dp_{}_alignment_mode_{}_max_chunks_{}_alignment_model_{}_matching_method_{}_loose_matching_{}.jsonl".format(
-                    self.split_name,
-                    use_retrieved_evidence,
-                    num_retrieved_evidence,
-                    dynamic_parsing,
-                    alignment_mode,
-                    max_chunks,
-                    alignment_model,
-                    matching_method,
-                    loose_matching,
-                ),
-            )
-
-        print("Trying to find data from {} ...".format(self.save_path))
-        if os.path.exists(self.save_path) and not overwrite_data:
-            print("Load existing data from {} ...".format(self.save_path))
-            self.load_existing_data(is_debug)
-
-            label_stats = {"SUPPORTS": 0, "REFUTES": 0, "NOT ENOUGH INFO": 0}
-            all_keys = set([])
-            for key, lab in self.labels.items():
-                acc_key = str(key).split("0000000000")[0]
-                if acc_key in all_keys:
-                    continue
-                all_keys.add(acc_key)
-                label_stats[lab] += 1
-            print("Label Distributions: ", label_stats)
-            return
+        self.alignment_mode = alignment_mode
+        self.max_chunks = max_chunks
+        self.alignment_model = alignment_model
+        self.matching_method = matching_method
+        self.loose_matching = loose_matching
+        self.sentence_transformer = sentence_transformer
+    
 
         self.claims = {}
         self.labels = {}
@@ -122,68 +68,49 @@ class DatasetProcessor(object):
         self.claims_parsed = {}
         self.claims_parsed_hierarchy = {}
         self.alignments = {}
+        self.proofver_proofs = {}
 
-        self.setup_dataset()
 
-        if self.is_few_shot and "train" in self.split_name:
-            new_claims = {}
-            new_labels = {}
-            new_sentence_evidence = {}
-            new_proofs = {}
+        if split != "test": # Load existing data for training and dev if it exists
+            self._set_save_path()
 
-            label_stats = {"SUPPORTS": [], "REFUTES": [], "NOT ENOUGH INFO": []}
-            num_per_class = int(self.num_samples / 3)
-            num_per_class_ref = num_per_class + (self.num_samples - (3 * num_per_class))
+            print("Trying to find data from {} ...".format(self.save_path))
+            if os.path.exists(self.save_path) and not overwrite_data:
+                print("Load existing data from {} ...".format(self.save_path))
+                self.load_existing_data(is_debug)
 
-            for key, proofs in self.proofver_proofs.items():
-                label_stats[self.labels[key]].append(key)
+                label_stats = {"SUPPORTS": 0, "REFUTES": 0, "NOT ENOUGH INFO": 0}
+                all_keys = set([])
+                for key, lab in self.labels.items():
+                    acc_key = str(key).split("0000000000")[0]
+                    if acc_key in all_keys:
+                        continue
+                    all_keys.add(acc_key)
+                    label_stats[lab] += 1
+                print("Label Distributions: ", label_stats)
+                return
 
-            print({x: len(y) for x, y in label_stats.items()})
+            self.setup_dataset()
+        
+        else:
+            test_path  =  os.path.join(ROOT_DIR, "data", "test.jsonl")
+            with open(test_path, "r") as f_in:
+                lines = f_in.readlines()
+                for line in lines:
+                    content = json.loads(line)
+                    qid = content["id"]
+                    self.claims[qid] = content["claim"]
+                    self.sentence_evidence[qid] = self.ev_sentence_concat_op.join(content["evidence"])
+                    self.labels[qid] = content["label"] if "label" in content else "SUPPORTS"
+            self.save_path = os.path.join(ROOT_DIR, "data", "test_processed.jsonl")
 
-            selected_keys = set([])
-            if self.stratified_sampling:
-                supp_list = random.sample(self.label_stats["SUPPORTS"], num_per_class)
-                nei_list = random.sample(self.label_stats["NOT ENOUGH INFO"], num_per_class)
-                neg_list = random.sample(self.label_stats["REFUTES"], num_per_class + num_per_class_ref)
-                selected_keys |= set(supp_list)
-                selected_keys |= set(nei_list)
-                selected_keys |= set(neg_list)
-            else:
-                all_keys = random.sample(list(self.proofver_proofs.keys()), self.num_samples)
-                selected_keys = set(all_keys)
+        self._align_samples()
 
-            assert (
-                len(selected_keys) == self.num_samples
-            ), "Selected samples and requested samples do not match, expected {} got {}".format(
-                self.num_samples, len(selected_keys)
-            )
-            for key, proofs in self.proofver_proofs.items():
-                if key not in selected_keys:
-                    continue
-                for i, proof in enumerate(proofs):
-                    add_to_id = int(str(key) + ("0000000000" + str(i)))
-                    new_claims[add_to_id] = self.claims[key]
-                    new_labels[add_to_id] = self.labels[key]
-                    new_sentence_evidence[add_to_id] = self.sentence_evidence[key]
-                    new_proofs[add_to_id] = proof
+        return
 
-            self.claims = new_claims
-            self.labels = new_labels
-            self.sentence_evidence = new_sentence_evidence
-            self.proofver_proofs = new_proofs
-
-            label_stats = {"SUPPORTS": 0, "REFUTES": 0, "NOT ENOUGH INFO": 0}
-            all_keys = set([])
-            for key, lab in self.labels.items():
-                acc_key = str(key).split("0000000000")[0]
-                if acc_key in all_keys:
-                    continue
-                all_keys.add(acc_key)
-                label_stats[lab] += 1
-            print("Label Distributions: ", label_stats)
-
+    def _align_samples(self):
         # Use proofver for alignment or our multi-granular alignment method
-        if alignment_mode == "proofver":
+        if self.alignment_mode == "proofver":
             for qid, claim in tqdm(self.claims.items()):
                 # Sometimes proofver fails to parse a claim
                 if qid in self.proofver_proofs:
@@ -199,14 +126,14 @@ class DatasetProcessor(object):
         else:
             aligner = DynamicSentenceAligner(
                 dataset=self.dataset,
-                alignment_model=alignment_model,
-                matching_method=matching_method,
-                sentence_transformer=sentence_transformer,
-                num_retrieved_evidence=num_retrieved_evidence,
-                max_chunks=max_chunks,
-                alignment_mode=alignment_mode,
-                loose_matching=loose_matching,
-                dynamic_parsing=dynamic_parsing,
+                alignment_model=self.alignment_model,
+                matching_method=self.matching_method,
+                sentence_transformer=self.sentence_transformer,
+                num_retrieved_evidence=self.num_retrieved_evidence,
+                max_chunks=self.max_chunks,
+                alignment_mode=self.alignment_mode,
+                loose_matching=self.loose_matching,
+                dynamic_parsing=self.dynamic_parsing,
             )
 
             for qid, claim in tqdm(self.claims.items()):
@@ -227,19 +154,62 @@ class DatasetProcessor(object):
                 self.alignments[qid] = aligned["alignment"]
 
         self._save_data()
-        return
+
+
+    def _set_save_path(self):
+        dataset_path = self.dataset
+        if "train" in self.split:
+            samples_text = str(self.num_samples)
+            if self.stratified_sampling:
+                samples_text += "_stratified"
+            print("ALIGNMENT MODE", self.alignment_mode)
+            self.save_path = os.path.join(
+                ROOT_DIR,
+                "data",
+                dataset_path,
+                "processed_{}_num_samples_{}_seed_{}_use_retr_{}_retr_evidence_{}_dp_{}_alignment_mode_{}_max_chunks_{}_alignment_model_{}_matching_method_{}_loose_matching_{}.jsonl".format(
+                    self.split_name,
+                    samples_text,
+                    self.seed,
+                    self.use_retrieved_evidence,
+                    self.num_retrieved_evidence,
+                    self.dynamic_parsing,
+                    self.alignment_mode,
+                    self.max_chunks,
+                    self.alignment_model,
+                    self.matching_method,
+                    self.loose_matching,
+                ),
+            )
+        else:  # Do not add num samples argument since evaluation is on entire data
+            self.save_path = os.path.join(
+                ROOT_DIR,
+                "data",
+                dataset_path,
+                "processed_{}_use_retr_{}_retr_evidence_{}_dp_{}_alignment_mode_{}_max_chunks_{}_alignment_model_{}_matching_method_{}_loose_matching_{}.jsonl".format(
+                    self.split_name,
+                    self.use_retrieved_evidence,
+                    self.num_retrieved_evidence,
+                    self.dynamic_parsing,
+                    self.alignment_mode,
+                    self.max_chunks,
+                    self.alignment_model,
+                    self.matching_method,
+                    self.loose_matching,
+                ),
+            )
 
     def _save_data(self):
         with open(self.save_path, "w") as f_out:
             for key in self.claims:
                 dictc = {}
-                if key in self.proofver_proofs:
+                if key in self.proofver_proofs or self.split == "test":
                     claim = self.claims[key]
                     claims_parsed = self.claims_parsed[key]
                     claim_parsed_hierarchy = self.claims_parsed_hierarchy[key]
                     alignment = self.alignments[key]
                     evidence = self.sentence_evidence[key]
-                    proof = self.proofver_proofs[key]
+                    proof = self.proofver_proofs[key] if key in self.proofver_proofs else []
                     verdict = self.labels[key]
                     dictc["id"] = key
                     dictc["claim"] = claim
@@ -250,12 +220,6 @@ class DatasetProcessor(object):
                     dictc["claim_parsed_hierarchy"] = claim_parsed_hierarchy
                     dictc["alignment"] = alignment
                     f_out.write("{}\n".format(json.dumps(dictc)))
-                    print(claim)
-                    print(claims_parsed)
-                    print(alignment)
-                    print(evidence)
-                    print(proof)
-                    print("--------")
 
     def _load_evidence(self, gold_evidences, already_filled=False):
         if self.use_retrieved_evidence in ["False", False]:
@@ -382,13 +346,19 @@ class DatasetProcessor(object):
 
     def setup_dataset(self):
         if self.dataset == "fever":
+            from pyserini.search.lucene import LuceneSearcher
             self.dataset_reader = FeverReader(self.split, self.is_few_shot)
             self.proofver_proofs = self.dataset_reader.read_proofver_proofs()
-            self.searcher_sentences = LuceneSearcher(
-                os.path.join(ROOT_DIR, "index", "lucene-index-{}-sentences-script").format(self.dataset)
-            )  # SimpleSearcher(self.index)
-            gold_evidences = {}
 
+            index_path =  os.path.join(ROOT_DIR, "index", "lucene-index-{}-sentences-script").format(self.dataset)
+
+            if os.path.exists(index_path):
+                self.searcher_sentences = LuceneSearcher(index_path)  # SimpleSearcher(self.index)
+                gold_evidences = {}
+            else:
+                print("Index Path to index for retrieving evidence not found. Make sure you download the index as described in the repository at: https://github.com/Raldir/QA-NatVer")
+                sys.exit()
+                
             for i, anno in enumerate(self.dataset_reader.read_annotations()):
                 qid, query, label, evidences = anno
                 self.claims[qid] = query
@@ -415,6 +385,65 @@ class DatasetProcessor(object):
             self._load_evidence(gold_evidences, already_filled=True)
 
             self._load_evidence(gold_evidences)
+
+        # Make training data unique given multiple proofs
+        if self.is_few_shot and "train" in self.split_name:
+            new_claims = {}
+            new_labels = {}
+            new_sentence_evidence = {}
+            new_proofs = {}
+
+            label_stats = {"SUPPORTS": [], "REFUTES": [], "NOT ENOUGH INFO": []}
+            num_per_class = int(self.num_samples / 3)
+            num_per_class_ref = num_per_class + (self.num_samples - (3 * num_per_class))
+
+            for key, proofs in self.proofver_proofs.items():
+                label_stats[self.labels[key]].append(key)
+
+            print({x: len(y) for x, y in label_stats.items()})
+
+            selected_keys = set([])
+            if self.stratified_sampling:
+                supp_list = random.sample(self.label_stats["SUPPORTS"], num_per_class)
+                nei_list = random.sample(self.label_stats["NOT ENOUGH INFO"], num_per_class)
+                neg_list = random.sample(self.label_stats["REFUTES"], num_per_class + num_per_class_ref)
+                selected_keys |= set(supp_list)
+                selected_keys |= set(nei_list)
+                selected_keys |= set(neg_list)
+            else:
+                all_keys = random.sample(list(self.proofver_proofs.keys()), self.num_samples)
+                selected_keys = set(all_keys)
+
+            assert (
+                len(selected_keys) == self.num_samples
+            ), "Selected samples and requested samples do not match, expected {} got {}".format(
+                self.num_samples, len(selected_keys)
+            )
+            for key, proofs in self.proofver_proofs.items():
+                if key not in selected_keys:
+                    continue
+                for i, proof in enumerate(proofs):
+                    add_to_id = int(str(key) + ("0000000000" + str(i)))
+                    new_claims[add_to_id] = self.claims[key]
+                    new_labels[add_to_id] = self.labels[key]
+                    new_sentence_evidence[add_to_id] = self.sentence_evidence[key]
+                    new_proofs[add_to_id] = proof
+
+            self.claims = new_claims
+            self.labels = new_labels
+            self.sentence_evidence = new_sentence_evidence
+            self.proofver_proofs = new_proofs
+
+            label_stats = {"SUPPORTS": 0, "REFUTES": 0, "NOT ENOUGH INFO": 0}
+            all_keys = set([])
+            for key, lab in self.labels.items():
+                acc_key = str(key).split("0000000000")[0]
+                if acc_key in all_keys:
+                    continue
+                all_keys.add(acc_key)
+                label_stats[lab] += 1
+            print("Label Distributions: ", label_stats)
+
 
 
 if __name__ == "__main__":

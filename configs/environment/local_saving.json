@@ -3,12 +3,9 @@
     "compute_precision": "bf16",
     "compute_strategy": "none",
     "batch_size": 8,
-    "eval_batch_size" : 32,
+    "eval_batch_size" : 16,
     "grad_accum_factor": 4,
     "few_shot": true,
     "eval_before_training": false,
-    "run_joint": true
-
-
-
+    "save_model": true
 }

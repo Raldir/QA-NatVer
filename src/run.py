@@ -30,15 +30,13 @@ def main(config):
     :param config:
     :return:
     """
+    
+    assert config.load_weight != "", "Need to specify a model to load..."
 
     tokenizer, model = get_transformer(config)
 
     datamodule_natop = FinetuneDataModuleJoint(config, tokenizer, mode="natop")
     datamodule_verdict = FinetuneDataModuleJoint(config, tokenizer, mode="verdict")
-    datamodule_natop.setup("fit")
-    datamodule_verdict.setup("fit")
-    datamodule_natop.setup("validation")
-    datamodule_verdict.setup("validation")
 
     evaluator_natop = EvaluatorNatop(config, datamodule_natop)
     evaluator_verdict = EvaluatorVerdict(config, datamodule_verdict)
@@ -54,19 +52,11 @@ def main(config):
         devices=1,
         precision=config.compute_precision,
         strategy=config.compute_strategy if config.compute_strategy != "none" else None,
-        log_every_n_steps=20,
-        max_steps=config.num_steps,
-        num_sanity_val_steps=0, # Important to have this flag to merge predictions over multiple batches
-        check_val_every_n_epoch=None,  # config.check_val_every_n_epoch,
-        val_check_interval=int((config.num_steps) * config.grad_accum_factor), # Since no validation, evaluate at last step
-        accumulate_grad_batches=config.grad_accum_factor,
-        gradient_clip_val=config.grad_clip_norm,
     )
-    trainer.fit(litmodule, datamodule_natop)
 
     # Generate natop probability score and verdict score
-    trainer.validate(litmodule, datamodule_natop)
-    trainer.validate(litmodule_verdict, datamodule_verdict)
+    trainer.test(litmodule, datamodule_natop)
+    trainer.test(litmodule_verdict, datamodule_verdict)
 
     # Use scores to select the most appropriate proof given the average of both scores
     evaluator = Evaluator(config, datamodule_natop)

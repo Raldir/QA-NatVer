@@ -1,6 +1,5 @@
 from setuptools import find_packages, setup
 
-import os
 import pathlib
 
 # Commands: 
@@ -16,14 +15,16 @@ README = (HERE / "README.md").read_text()
 INSTALL_REQS = [
     "torch == 1.13.1",
     "pytorch_lightning == 1.9.1",
-    "tqdm",
-    "accelerate",
     # "en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl",
-    "nltk",
-    "pandas",
     "spacy==3.5.0",
     "transformers==4.26.1",
-    "pyserini==0.20.0"
+    "pyserini==0.20.0",
+    "matplotlib==3.6.3",
+    "flair",
+    "nltk",
+    "pandas",
+    "tqdm",
+    "accelerate",
 ]
 
 setup(

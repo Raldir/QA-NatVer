@@ -1,6 +1,4 @@
 import copy
-import os
-import pathlib
 import random
 
 import numpy as np
@@ -177,69 +175,90 @@ class FinetuneDataModuleJoint(LightningDataModule):
         return processed_data
 
     def join_splits(self):
-        self.dataset_or = copy.deepcopy(self.train_dataset)
+        # self.dataset_or = copy.deepcopy(self.train_dataset)
 
-        self.dataset_or.claims.update(self.dev_dataset.claims)
-        self.dataset_or.labels.update(self.dev_dataset.labels)
-        self.dataset_or.proofver_proofs.update(self.dev_dataset.proofver_proofs)
-        self.dataset_or.sentence_evidence.update(self.dev_dataset.sentence_evidence)
-        self.dataset_or.claims_parsed.update(self.dev_dataset.claims_parsed)
-        self.dataset_or.claims_parsed_hierarchy.update(self.dev_dataset.claims_parsed_hierarchy)
-        self.dataset_or.alignments.update(self.dev_dataset.alignments)
+        self.dataset_or.claims.update(self.dev_dataset_or.claims)
+        self.dataset_or.labels.update(self.dev_dataset_or.labels)
+        self.dataset_or.proofver_proofs.update(self.dev_dataset_or.proofver_proofs)
+        self.dataset_or.sentence_evidence.update(self.dev_dataset_or.sentence_evidence)
+        self.dataset_or.claims_parsed.update(self.dev_dataset_or.claims_parsed)
+        self.dataset_or.claims_parsed_hierarchy.update(self.dev_dataset_or.claims_parsed_hierarchy)
+        self.dataset_or.alignments.update(self.dev_dataset_or.alignments)
 
     def setup(self, stage):
         # make assignments here (val/train/test split)
         # called on every process in DDP
-
-        self.train_dataset = DatasetProcessor(
-            dataset=self.config.dataset,
-            split="train",
-            num_samples=self.config.num_samples,
-            seed=self.config.seed,
-            stratified_sampling=self.config.stratified_sampling,
-            use_retrieved_evidence=self.config.use_retrieved_evidence,
-            num_retrieved_evidence=self.config.num_retrieved_evidence,
-            is_debug=self.config.debug,
-            is_few_shot=self.config.few_shot,
-            dynamic_parsing=self.config.dynamic_parsing,
-            alignment_model=self.config.alignment_model,
-            matching_method=self.config.matching_method,
-            sentence_transformer=self.config.sentence_transformer,
-            max_chunks=self.config.max_chunks,
-            alignment_mode=self.config.alignment_mode,
-            loose_matching=self.config.loose_matching,
-        )
-        # no num_samples specified here since evaluation on all data
-        self.dev_dataset = DatasetProcessor(
-            dataset=self.config.dataset,
-            split="validation",
-            use_retrieved_evidence=self.config.use_retrieved_evidence,
-            num_retrieved_evidence=self.config.num_retrieved_evidence,
-            is_debug=self.config.debug,
-            is_few_shot=self.config.few_shot,
-            dynamic_parsing=self.config.dynamic_parsing,
-            alignment_model=self.config.alignment_model,
-            matching_method=self.config.matching_method,
-            sentence_transformer=self.config.sentence_transformer,
-            max_chunks=self.config.max_chunks,
-            alignment_mode=self.config.alignment_mode,
-            loose_matching=self.config.loose_matching,
-        )
-
-        self.join_splits()  # create a single field dataset_or that can be used later to access info
-
-        self.train_dataset = self._process_dataset(self.train_dataset, mode = self.mode)
-        self.dev_dataset = self._process_dataset(self.dev_dataset, mode = self.mode, inference=True)
-
-        self.train_dataset = FinetuneDatasetWithTemplate(
+        if stage in ["fit", "train"]:
+            self.dataset_or = DatasetProcessor(
+                dataset=self.config.dataset,
+                split="train",
+                num_samples=self.config.num_samples,
+                seed=self.config.seed,
+                stratified_sampling=self.config.stratified_sampling,
+                use_retrieved_evidence=self.config.use_retrieved_evidence,
+                num_retrieved_evidence=self.config.num_retrieved_evidence,
+                is_debug=self.config.debug,
+                is_few_shot=self.config.few_shot,
+                dynamic_parsing=self.config.dynamic_parsing,
+                alignment_model=self.config.alignment_model,
+                matching_method=self.config.matching_method,
+                sentence_transformer=self.config.sentence_transformer,
+                max_chunks=self.config.max_chunks,
+                alignment_mode=self.config.alignment_mode,
+                loose_matching=self.config.loose_matching,
+            )
+            self.train_dataset = self._process_dataset(self.dataset_or, mode = self.mode)
+            self.train_dataset = FinetuneDatasetWithTemplate(
             self.train_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
-        )
-        self.dev_dataset = FinetuneDatasetWithTemplate(
-            self.dev_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
-        )
+            )
+            print(f"Train size {len(self.train_dataset)}")
 
-        print(f"Train size {len(self.train_dataset)}")
-        print(f"Eval size {len(self.dev_dataset)}")
+        elif stage in ["validate", "validation"]:
+            self.dev_dataset_or = DatasetProcessor(
+                dataset=self.config.dataset,
+                split="validation",
+                use_retrieved_evidence=self.config.use_retrieved_evidence,
+                num_retrieved_evidence=self.config.num_retrieved_evidence,
+                is_debug=self.config.debug,
+                is_few_shot=self.config.few_shot,
+                dynamic_parsing=self.config.dynamic_parsing,
+                alignment_model=self.config.alignment_model,
+                matching_method=self.config.matching_method,
+                sentence_transformer=self.config.sentence_transformer,
+                max_chunks=self.config.max_chunks,
+                alignment_mode=self.config.alignment_mode,
+                loose_matching=self.config.loose_matching,
+            )
+            self.dev_dataset = self._process_dataset(self.dev_dataset_or, mode = self.mode, inference=True)
+            self.dev_dataset = FinetuneDatasetWithTemplate(
+            self.dev_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
+            )
+            self.join_splits()  # create a single field dataset_or that can be used later to access info
+            print(f"Val size {len(self.dev_dataset)}")
+
+        elif stage in ["predict", "test"]:
+            self.test_dataset_or = DatasetProcessor(
+                dataset=self.config.dataset,
+                split="test",
+                use_retrieved_evidence=self.config.use_retrieved_evidence,
+                num_retrieved_evidence=self.config.num_retrieved_evidence,
+                is_debug=self.config.debug,
+                is_few_shot=self.config.few_shot,
+                dynamic_parsing=self.config.dynamic_parsing,
+                alignment_model=self.config.alignment_model,
+                matching_method=self.config.matching_method,
+                sentence_transformer=self.config.sentence_transformer,
+                max_chunks=self.config.max_chunks,
+                alignment_mode=self.config.alignment_mode,
+                loose_matching=self.config.loose_matching,
+            )
+            self.test_dataset = self._process_dataset(self.test_dataset_or, mode = self.mode, inference=True)
+            self.test_dataset = FinetuneDatasetWithTemplate(
+            self.test_dataset, self.tokenizer, self.config.max_seq_len, self.config.max_answer_choice_length
+            )
+            self.dataset_or = self.test_dataset_or
+            print(f"Eval size {len(self.test_dataset)}")
+
 
     def train_dataloader(self):
         return torch.utils.data.DataLoader(
@@ -262,6 +281,17 @@ class FinetuneDataModuleJoint(LightningDataModule):
             num_workers=min([self.config.eval_batch_size, self.config.num_workers]),
         )
 
+    def test_dataloader(self):
+        return torch.utils.data.DataLoader(
+            self.test_dataset,
+            batch_size=self.config.eval_batch_size,
+            shuffle=False,
+            collate_fn=create_collate_fn(
+                self.tokenizer.pad_token_id, self.tokenizer.eos_token_id
+            ),  # cls_token_id # eos_token_id
+            num_workers=min([self.config.eval_batch_size, self.config.num_workers]),
+        )
+    
 
 class FinetuneDatasetWithTemplate(torch.utils.data.dataset.Dataset):
     def __init__(self, dataset, tokenizer, max_seq_len, max_answer_choice_length, add_special_tokens=True):

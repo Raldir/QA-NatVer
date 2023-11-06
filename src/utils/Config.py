@@ -2,6 +2,7 @@ import ast
 import json
 import os
 
+os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 class Config(object):
     def __init__(self, filenames=None, kwargs=None):
@@ -66,10 +67,8 @@ class Config(object):
         # Trainer configs
         self.num_steps = 15_000  # 100_000
         self.grad_accum_factor = 4
-        self.val_check_interval = 3000
         self.eval_before_training = False  # True
         self.save_model = False
-        self.save_step_interval = 20_000
         self.mc_loss = 1
         self.unlikely_loss = 1
         self.length_norm = 1

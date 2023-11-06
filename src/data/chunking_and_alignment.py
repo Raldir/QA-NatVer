@@ -1,13 +1,7 @@
-import argparse
-
-# from constituent_treelib import ConstituentTree, BracketedTree, Language, Structure
-import copy
 import gc
 import json
 import string
-from itertools import permutations, product
 
-import spacy
 import torch
 import torch.nn.functional as F
 from flair.data import Sentence
@@ -125,17 +119,13 @@ class DynamicSentenceAligner(object):
     def _find_all_options(self, spans, spans_flat_index, claim_token_to_span_map, claim_sentence):
         options = []
 
-        # print("OR LENGTH", spans_flat_index)
         if self.dynamic_parsing:
             all_combs = self.find_combinations(spans, claim_sentence)
-            # print(all_combs)
             new_combs = []
             for comb in all_combs:
-                # print(len(comb))
                 if len(comb) < self.max_chunks:
                     new_combs.append(comb)
             options += new_combs[:5000]  # Arbitary cutoff in case too many options
-            # print("-------")
 
             if " ".join(spans[:spans_flat_index]) == claim_sentence:
                 ind = [spans.index(x) for x in spans[:spans_flat_index]]
@@ -169,9 +159,6 @@ class DynamicSentenceAligner(object):
             if updated_option not in updated_options:
                 updated_options.append(updated_option)
 
-        # print(duplicates)
-        # print(old_to_new_mapping)
-        # print(claim_token_to_span_map)
 
         claim_token_to_span_map_new = {}
         for key, value_list in claim_token_to_span_map.items():
@@ -183,9 +170,6 @@ class DynamicSentenceAligner(object):
                     claim_token_to_span_map_new[key].append(old_to_new_mapping[duplicates[value]])
                 else:
                     claim_token_to_span_map_new[key].append(old_to_new_mapping[value])
-
-        # print(claim_token_to_span_map)
-        # print(claim_token_to_span_map_new)
 
         return [updated_spans, updated_options, claim_token_to_span_map_new]
 
@@ -275,8 +259,6 @@ class DynamicSentenceAligner(object):
                     token_to_span_map_inverse[value].append(key)
                 else:
                     token_to_span_map_inverse[value] = [key]
-            # print(token_to_span_map_inverse)
-            # print(token_to_span_map)
 
             len_or = len(aList)
             for a, b in zip(aList, aList[1::]):

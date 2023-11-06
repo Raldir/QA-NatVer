@@ -15,7 +15,6 @@ from src.constants import (
     NEG_INDEX,
     TEMPLATE_LOGITS,
 )
-from src.models.run_dfa import natlog_automaton
 from src.utils.get_optimizer import get_optimizer
 from src.utils.get_scheduler import get_scheduler
 
@@ -34,6 +33,11 @@ class LitModule(LightningModule):
 
         self._last_global_step_saved = -1
 
+
+    def set_data_and_evaluator(self, datamodule, evaluator):
+        self.datamodule = datamodule
+        self.evaluator = evaluator
+        
     def _compute_lm_loss(self, output, label):
         logits = output[TEMPLATE_LOGITS]
         lm_target = output[LM_TARGET]
@@ -96,8 +100,8 @@ class LitModule(LightningModule):
         if not (self.use_deepspeed or self.use_ddp) or dist.get_rank() == 0:
             self.log_dict(tensorboard_logs)
 
-        if self.global_step % self.config.save_step_interval == 0:
-            self.save_model()
+        # if self.global_step % (self.config.num_steps - 1) == 0:
+        #     self.save_model()
 
         return loss
 
@@ -138,8 +142,47 @@ class LitModule(LightningModule):
         else:
             metrics = {}
 
-        self.save_model()
         return metrics
+
+    def test_step(self, batch, batch_idx):
+        batch_output = self.model(batch)  # TODO: Remove Label from output for clean seperation.
+        return batch_output
+
+    def test_epoch_end(self, outputs):
+        # exchange outputs between processes
+        if self.use_deepspeed or self.use_ddp:
+            gathered_outputs = [[] for _ in range(dist.get_world_size())]
+            dist.all_gather_object(gathered_outputs, outputs)
+            if dist.get_rank() == 0:
+                outputs = [batch_output for outputs in gathered_outputs for batch_output in outputs]
+
+        if not (self.use_deepspeed or self.use_ddp) or dist.get_rank() == 0:
+            # let rank 0 collect all outputs
+            accumulated = {key: [] for key in outputs[0].keys()}
+            for batch_output in outputs:
+                for key, value in batch_output.items():
+                    accumulated[key].extend(value)
+
+            # multi-process may yield dupliated examples in the last batch
+            valid_mask = []
+            idx_set = set()
+            for idx in accumulated[IDX]:
+                valid_mask.append(idx not in idx_set)
+                idx_set.add(idx)
+            for key, values in accumulated.items():
+                accumulated[key] = [v for v, m in zip(values, valid_mask) if m]
+
+            # compute and log results
+            metrics = self.evaluator.compute_metric(accumulated)
+
+            result_str = json.dumps(metrics) + "\n"
+            with open(self.config.test_score_file, "a+") as f:
+                f.write(result_str)
+        else:
+            metrics = {}
+
+        return metrics
+    
 
     def configure_optimizers(self):
         optimizer, self.trainable_param_names = get_optimizer(self.model, self.config)
