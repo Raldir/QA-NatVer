@@ -77,7 +77,9 @@ If you want to use QA-NatVer out of the box for existing claim evidence pairs, y
 
 `https://drive.google.com/file/d/1fSDA7rlp39tEDAehoN8EeybEf9wSqEBo/view?usp=sharing`
 
-The input data should be a placed into `data/test.jsonl` file, with each line consisting of am `id`, `claim`, and an `evidence` field. The evidence field is expected to be a list of sentences. Look at the dummy data as found in the repository. To run the input data on QA-NatVer call:
+The input data should be a placed into `data/test.jsonl` file, with each line consisting of am `id`, `claim`, and an `evidence` field. The evidence field is expected to be a list of sentences. Look at the dummy data as found in the repository. The QA-NatVer with the Flan-T5 backbone will be made available soon.
+
+To run the input data on QA-NatVer call:
 
 ```bash
 ./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local_saving bart0 32 0
