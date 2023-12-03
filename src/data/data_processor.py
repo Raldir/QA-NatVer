@@ -163,7 +163,7 @@ class DatasetProcessor(object):
             self.save_path = os.path.join(
                 ROOT_DIR,
                 "data",
-                dataset_path,
+                "fever",
                 "processed_{}_num_samples_{}_seed_{}_use_retr_{}_retr_evidence_{}_dp_{}_alignment_mode_{}_max_chunks_{}_alignment_model_{}_matching_method_{}_loose_matching_{}.jsonl".format(
                     self.split_name,
                     samples_text,
