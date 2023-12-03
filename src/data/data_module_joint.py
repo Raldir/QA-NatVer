@@ -134,8 +134,8 @@ class FinetuneDataModuleJoint(LightningDataModule):
             label = dataset.labels[key]
             label_id = LABELS.index(label)
             # If we do not consider retrieved evidence ignore NEI instances as they have no evidence.
-            if label == self.config.nei_token and not self.config.use_retrieved_evidence:
-                continue
+            # if label == self.config.nei_token and not self.config.use_retrieved_evidence:
+            #     continue
             input_text = "Is the claim: {} entailed given the evidence: {} Yes, No, or Neutral?".format(
                 claim, evidence
             )

@@ -272,23 +272,25 @@ class Evaluator:
         recall = recall_score(preds, gold, average="macro")
         precision = precision_score(preds, gold, average="macro")
         f1 = f1_score(preds, gold, average="macro")
+        f1_micro = f1_score(preds, gold, average="micro")
         acc = accuracy_score(preds, gold)
 
         print(classification_report(gold, preds))
 
-        return [acc, recall, precision, f1, incorrect_ids]
+        return [acc, recall, precision, f1, f1_micro, incorrect_ids]
 
     def compute_metric(self, accumulated):
         results_span_level = {}
 
         generated_proofs = self.extract_natlog_proof(accumulated)
 
-        accuracy, recall, precision, f1, incorrect_ids = self._compute_metrics_proof_level(generated_proofs)
+        accuracy, recall, precision, f1, f1_micro, incorrect_ids = self._compute_metrics_proof_level(generated_proofs)
 
         results_span_level["accuracy"] = accuracy
         results_span_level["recall"] = recall
         results_span_level["precision"] = precision
         results_span_level["f1"] = f1
+        results_span_level["f1_micro"] = f1_micro
 
         if results_span_level["accuracy"] > self.highest_acc:
             self.highest_acc = results_span_level["accuracy"]
@@ -298,7 +300,7 @@ class Evaluator:
             pickle.dump(accumulated, output_raw_file)
             output_raw_file.close()
 
-        print("acc: {}, recall: {}, precision: {}, f1: {}".format(accuracy, recall, precision, f1))
+        print("acc: {}, recall: {}, precision: {}, f1: {}, f1_micro: {}".format(accuracy, recall, precision, f1, f1_micro))
 
         return results_span_level
 
