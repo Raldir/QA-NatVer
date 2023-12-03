@@ -2,6 +2,7 @@
 models/
 !data/
 data/*
+!data/test.jsonl
 !src
 !src/models
 data/natlog/

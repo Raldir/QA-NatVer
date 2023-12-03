@@ -1,0 +1,3 @@
+{"id": 89296, "claim": "Henry Spencer is played by a Greek actor.", "evidence": ["[ Test ] This is a test sentence", "[ Henry Spencer ] Henry Spencer is a Greek actor"]}
+{"id": 78554, "claim": "John Ritter died in October.", "evidence": ["[ John Ritter ] John Ritter died on October 21", "[ John Ritter ] John Ritter was born on August 15"]}
+{"id": 83809, "claim": "13 Reasons Why is the only television series of 2012 in the drama-mystery genre.", "evidence": ["[ 13 Reasons Why ] 13 Reasons Why is a drama-mystery television series of 2015", "[ 13 Reasons Why ] 13 Reasons Why aired the firs time in 2010."]}
