@@ -95,13 +95,24 @@ The input data should be a placed into `data/test.jsonl` file, with each line co
 To run the input data on QA-NatVer call:
 
 ```bash
-./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local_saving bart0 32 0
+./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_only_retrieval_5_ev fever local_saving bart0_trained 32 0
 ```
 
-### Run DanFEVER (TODO)
+## DanFEVER (Multilingual QA-NatVer)
 
-With arguments being the processed data, the dataset, the environment, the model, the sample size, and the seed.
+We further provide a multilingual variation of QA-NatVer, trained on FEVER data with english questions on a multilingual backbone (mT0).
+
+Download QA-NatVer with a mT0-3B backbone here:
+`https://drive.google.com/file/d/1tviJ1tFsV2ERvDqHDhPFANlMFiKmstG4/view?usp=sharing`
+
+
+Note that while the alignment system is multilingual (multilingual BERT), the chunking system is not. We use [flair](https://huggingface.co/flair/chunk-english) for chunking in English, and [DaNLP](https://danlp-alexandra.readthedocs.io/en/latest/) for chunking in Danish. To achieve best results on your target language, you would want to consider adjusting the chunking system.
+
+
+Train and evaluate QA-NatVer on DanFEVER using the already processed data, with arguments being the processed data, the dataset, the environment, the model, the sample size, and the seed.
 
 ```
-./bin/run_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_no_retrieval_2_ev danfever local mt0_3b 32 42
+./bin/train_few_shot.sh dynamic_awesomealign_bert_mwmf_coarse_finetuned_4000_gold_no_nei_no_retrieval_2_ev danfever local_saving mt0_3b 32 0
 ```
+
+TODO: Describe how to install and run DaNLP chunking.

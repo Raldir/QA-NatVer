@@ -65,9 +65,6 @@ class FinetuneDataModuleJoint(LightningDataModule):
             label = dataset.labels[key]
             alignment = dataset.alignments[key] if key in dataset.alignments else []
             label = dataset.labels[key]
-            # If we do not consider retrieved evidence ignore NEI instances as they have no evidence.
-            # if label == self.config.nei_token and not self.config.use_retrieved_evidence:
-            #     continue
 
             if inference:  # Only do dynamic parsing during inference
                 chunked_claim = dataset.claims_parsed[key] if key in dataset.claims_parsed else []
@@ -133,9 +130,7 @@ class FinetuneDataModuleJoint(LightningDataModule):
             evidence = dataset.sentence_evidence[key]
             label = dataset.labels[key]
             label_id = LABELS.index(label)
-            # If we do not consider retrieved evidence ignore NEI instances as they have no evidence.
-            # if label == self.config.nei_token and not self.config.use_retrieved_evidence:
-            #     continue
+            
             input_text = "Is the claim: {} entailed given the evidence: {} Yes, No, or Neutral?".format(
                 claim, evidence
             )
