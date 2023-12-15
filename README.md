@@ -103,7 +103,7 @@ To run the input data on QA-NatVer call:
 We further provide a multilingual variation of QA-NatVer, trained on FEVER data with english questions on a multilingual backbone (mT0).
 
 Download QA-NatVer with a mT0-3B backbone here:
-`https://drive.google.com/file/d/1tviJ1tFsV2ERvDqHDhPFANlMFiKmstG4/view?usp=sharing`
+`https://drive.google.com/file/d/1bJa-EJE0iUJhPyqIU0LwAyk7WYdNLgg_/view?usp=sharing`
 
 
 Note that while the alignment system is multilingual (multilingual BERT), the chunking system is not. We use [flair](https://huggingface.co/flair/chunk-english) for chunking in English, and [DaNLP](https://danlp-alexandra.readthedocs.io/en/latest/) for chunking in Danish. To achieve best results on your target language, you would want to consider adjusting the chunking system.
