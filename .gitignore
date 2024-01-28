@@ -20,6 +20,9 @@ data/vitaminc/train.jsonl
 data/danfever/corpus_pyserini_paragraph/
 data/danfever/corpus_pyserini_pipeline/
 data/danfever/corpus_pyserini_sentence/
+run_danfever.txt
+data/fever/fever_evidence_test_set.jsonl
+data/fever/llama13b_predictions.jsonl
 data/danfever/da_wikipedia.tsv
 exp_out/vitaminc
 data/danfever/den_store_danske.tsv
